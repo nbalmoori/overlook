@@ -1,6 +1,6 @@
 class Booking {
-  constructor(bookingData) {
-    this.data = bookingData;
+  constructor(bookingsData) {
+    this.data = bookingsData;
   }
 };
 

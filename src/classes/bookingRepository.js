@@ -1,9 +1,9 @@
 import Booking from './booking';
 
 class BookingRepository {
-  constructor(bookingInfo) {
-    this.rawData = bookingInfo
-    this.bookingList = bookingInfo.map(booking => new Booking(booking))
+  constructor(bookingsInfo) {
+    this.rawData = bookingsInfo
+    this.bookingList = bookingsInfo.map(bookingInfo => new Booking(bookingInfo))
   }
 }
 
