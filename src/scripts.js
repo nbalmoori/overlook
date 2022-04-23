@@ -26,8 +26,10 @@ import BookingRepository from './classes/bookingRepository';
 // ----------------- QUERY SELECTORS ----------------- //
 
 // --------DASHBOARD-------- //
-let upcomingBookings = document.querySelector('.upcoming-bookings');
-let pastBookings = document.querySelector('.past-bookings');
+let header = document.querySelector('header')
+let upcomingBookings = document.querySelector('.upcoming-bookings-list');
+let pastBookings = document.querySelector('.past-bookings-list');
+let totalSpent = document.querySelector('.total-spent');
 
 // ----------------- GLOBAL VARIABLES ----------------- //
 let currentDate;
@@ -47,6 +49,8 @@ const getApiData = () => {
   ]).then(data => {
     createDataInstances(data)
     displayUpcomingBookings()
+    displayTotalSpent()
+    displayUserName()
   });
 };
 
@@ -73,7 +77,6 @@ const displayUpcomingBookings = () => {
 
   getTodaysDate();
   let splitCurrentDate = currentDate.split("/");
-
   let userBookings = user.getBookings(bookingList);
 
   userBookings.forEach(booking => {
@@ -91,14 +94,34 @@ const displayUpcomingBookings = () => {
   });
 
   current.forEach(booking => {
-    upcomingBookings.innerHTML += `<button class="reservation">Date:${booking.data.date}</button>`
+    upcomingBookings.innerHTML += `
+    <li class="reservation">
+      <p>Date: ${booking.data.date} </p>
+      <p>Type: ${booking.getRoomInfo(roomList).data.roomType}</p>
+      <p>Bed: ${booking.getRoomInfo(roomList).data.numBeds} ${booking.getRoomInfo(roomList).data.bedSize}</p>
+      <p>Cost: $${booking.getRoomInfo(roomList).data.costPerNight}</p>
+    </li>`
   });
 
   past.forEach(booking => {
-    pastBookings.innerHTML += `<button class="reservation">Date:${booking.data.date}</button>`
+    pastBookings.innerHTML += `
+    <li class="reservation">
+      <p>Date: ${booking.data.date} </p>
+      <p>Type: ${booking.getRoomInfo(roomList).data.roomType}</p>
+      <p>Bed: ${booking.getRoomInfo(roomList).data.numBeds} ${booking.getRoomInfo(roomList).data.bedSize}</p>
+      <p>Cost: $${booking.getRoomInfo(roomList).data.costPerNight}</p>
+    </li>`
   });
 
 };
+
+const displayTotalSpent = () => {
+  totalSpent.innerHTML = `Total Spent to Date: $${user.getTotalSpent(bookingList, roomList)}`
+}
+
+const displayUserName = () => {
+  header.innerText = `Welcome, ${user.name}`
+}
 
 
 
