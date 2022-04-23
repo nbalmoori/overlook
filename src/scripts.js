@@ -7,5 +7,16 @@ import './css/styles.css';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
+import { getFetch } from './apiCalls.js';
 
-console.log('This is the JavaScript entry file - your code begins here.');
+const getApiData = () => {
+  Promise.all([
+    getFetch('customers'),
+    getFetch('rooms'),
+    getFetch('bookings')
+  ]).then(data => {
+    console.log(data)
+  });
+};
+
+getApiData()

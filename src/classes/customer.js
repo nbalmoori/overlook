@@ -20,7 +20,6 @@ class Customer {
     return this.getBookings(bookingRepository).reduce((total, booking) => {
       let bookedRoom = roomRepository.roomList.find(room => room.data.number === booking.data.roomNumber)
       total += bookedRoom.data.costPerNight
-      // total += booking.data.roomNumber
       return total
     }, 0).toFixed(2)
   }
