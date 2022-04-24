@@ -11,11 +11,12 @@
 
   <section class="dashboard">
     <header>Welcome, username!</header>
-    <div class="dashboard-container">
-      <aside class="book-a-stay">Book your Stay</aside>
       <div class="reservations-container">
         <section class="total-spent">
         </section>
+        <div class="new-booking-button-container">
+          <button class="book-button">Book a Room!</button>
+        </div>
         <section class="upcoming-bookings">
           Your Upcoming Bookings:
           <ul class="upcoming-bookings-list">
@@ -27,7 +28,27 @@
           </ul>
         </section>
       </div>
-    </div>
+  </section>
+  <section class="booking-view hidden">
+    <button class="dashboard-button">Back to Dashboard</button>
+    <form class="search-by-date-form" id="searchByDateForm" name="searchByDateForm">
+      <div>
+        <label for="dateToBook">Date:</label>
+        <input type="date" id="dateToBook" name="dateToBook" required>
+        <!-- <label for="typeToBook">Room Type:</label>
+        <input type="button" id="typeToBook" value="Choose Type Here"> -->
+        <input type ="submit" value="Search for Room">
+      </div>
+    </form>
+    <form class="search-by-type-form hidden" id="searchByTypeFilter" name="searchByTypeFilter">
+      <div>
+        <label for="typeToBook">Room Type:</label>
+        <input type="button" id="typeToBook" value="Choose Type Here">
+        <input type ="submit" value="Search for Room">
+      </div>
+    </form>
+    <section class="available-rooms">
+    </section>
   </section>
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>

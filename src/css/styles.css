@@ -14,11 +14,11 @@
 }
 
 .book-a-stay {
-  width: 35%
+  /* width: 35% */
 }
 
 .reservations-container {
-  width: 65%
+  /* width: 65% */
 }
 
 .upcoming-bookings-list,
@@ -29,6 +29,6 @@
   list-style: none;
 }
 
-header {
-
+.hidden{
+  display: none;
 }

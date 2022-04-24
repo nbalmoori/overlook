@@ -26,10 +26,23 @@ import BookingRepository from './classes/bookingRepository';
 // ----------------- QUERY SELECTORS ----------------- //
 
 // --------DASHBOARD-------- //
-let header = document.querySelector('header')
+let dashboard = document.querySelector('.dashboard');
+let header = document.querySelector('header');
 let upcomingBookings = document.querySelector('.upcoming-bookings-list');
 let pastBookings = document.querySelector('.past-bookings-list');
 let totalSpent = document.querySelector('.total-spent');
+let bookButton = document.querySelector('.book-button');
+
+// --------BOOKING VIEW-------- //
+let bookingView = document.querySelector('.booking-view');
+let searchByDateForm = document.querySelector('.search-by-date-form');
+let searchByTypeForm = document.querySelector('.search-by-type-form');
+let searchFilterByTypeButton = document.querySelector('#typeToBook');
+
+
+
+let dashboardButton = document.querySelector('.dashboard-button');
+
 
 // ----------------- GLOBAL VARIABLES ----------------- //
 let currentDate;
@@ -40,6 +53,14 @@ let bookingList;
 
 
 // ----------------- FUNCTIONS ----------------- //
+
+const showElement = (element) => {
+  element.classList.remove('hidden');
+};
+
+const hideElement = (element) => {
+  element.classList.add('hidden');
+};
 
 const getApiData = () => {
   Promise.all([
@@ -129,3 +150,24 @@ const displayUserName = () => {
 // ----------------- EVENT LISTENERS ----------------- //
 
 window.addEventListener('load', getApiData);
+
+bookButton.addEventListener('click', (e) => {
+  hideElement(dashboard)
+  showElement(bookingView)
+})
+
+dashboardButton.addEventListener('click', (e) => {
+  showElement(dashboard)
+  hideElement(bookingView)
+})
+
+searchByDateForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  console.log(formData.get('dateToBook'))
+  showElement(searchByTypeForm)
+})
+
+searchFilterByTypeButton.addEventListener('click', (e) => {
+  console.log(roomList.getRoomTypes())
+})
