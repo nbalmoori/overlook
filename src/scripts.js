@@ -38,6 +38,8 @@ let bookingView = document.querySelector('.booking-view');
 let searchByDateForm = document.querySelector('.search-by-date-form');
 let searchByTypeForm = document.querySelector('.search-by-type-form');
 let searchFilterByTypeButton = document.querySelector('#typeToBook');
+let searchTypeDropdown = document.querySelector('.type-dropdown-content');
+let availableRoomsSection = document.querySelector('.available-rooms-list')
 
 
 
@@ -164,10 +166,35 @@ dashboardButton.addEventListener('click', (e) => {
 searchByDateForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
-  console.log(formData.get('dateToBook'))
+  console.log(formData.get('dateToBook').split("-").join("/"))
+
+
+  let bookedRoomsByDate = bookingList.bookingList.filter(booking => booking.data.date === formData.get('dateToBook').split("-").join("/")).map(booking => booking.data.roomNumber)
+  console.log(bookedRoomsByDate)
+
+  let availableRooms = roomList.roomList.filter(room => {
+    return (!bookedRoomsByDate.includes(room.data.number))
+  })
+  console.log(availableRooms)
+
+  availableRooms.forEach(room => {
+    availableRoomsSection.innerHTML += `
+      <li class="reservation">
+        <p>Type: ${room.data.roomType}</p>
+        <p>Bed: ${room.data.numBeds} ${room.data.bedSize}</p>
+        <p>Cost: $${room.data.costPerNight}</p>
+      </li>`
+  })
+
+
+
   showElement(searchByTypeForm)
 })
 
 searchFilterByTypeButton.addEventListener('click', (e) => {
   console.log(roomList.getRoomTypes())
+  searchTypeDropdown.innerHTML = `
+    <p>roomType1</p>
+    <p>roomType2</p>
+    <p>roomType3</p>`
 })

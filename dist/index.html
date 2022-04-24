@@ -37,17 +37,19 @@
         <input type="date" id="dateToBook" name="dateToBook" required>
         <!-- <label for="typeToBook">Room Type:</label>
         <input type="button" id="typeToBook" value="Choose Type Here"> -->
-        <input type ="submit" value="Search for Room">
+        <input type ="submit" value="Search for Date">
       </div>
     </form>
     <form class="search-by-type-form hidden" id="searchByTypeFilter" name="searchByTypeFilter">
       <div>
         <label for="typeToBook">Room Type:</label>
         <input type="button" id="typeToBook" value="Choose Type Here">
-        <input type ="submit" value="Search for Room">
+          <div id="typeDropdown" class="type-dropdown-content">
+          </div>
+        <input type="submit" value="Search by Type">
       </div>
     </form>
-    <section class="available-rooms">
+    <section class="available-rooms-list">
     </section>
   </section>
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->

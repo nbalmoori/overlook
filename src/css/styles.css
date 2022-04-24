@@ -22,7 +22,8 @@
 }
 
 .upcoming-bookings-list,
-.past-bookings-list {
+.past-bookings-list,
+.available-rooms-list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
