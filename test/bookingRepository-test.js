@@ -35,4 +35,25 @@ describe('BookingRepository', function() {
       }
     });
   });
+
+  it('should be able to filter bookings by user ID', () => {
+    expect(bookingRepository.findBookingByUser(1)).to.deep.equal([
+      {
+        data: {
+          id: '5fwrgu4i7k55hl6t6',
+          userID: 1,
+          date: '2022/01/10',
+          roomNumber: 3
+        }
+      },
+      {
+        data: {
+          id: '5fwrgu4i7k55hl6t7',
+          userID: 1,
+          date: '2022/05/16',
+          roomNumber: 4
+        }
+      }
+    ]);
+  });
 });
