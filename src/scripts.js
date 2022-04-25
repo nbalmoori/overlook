@@ -40,6 +40,10 @@ let searchByTypeForm = document.querySelector('.search-by-type-form');
 let searchFilterByTypeSelection = document.querySelector('.room-type-selection');
 let searchTypeDropdown = document.querySelector('.type-dropdown-content');
 let availableRoomsSection = document.querySelector('.available-rooms-list')
+let modal = document.querySelector('.modal')
+let modalContent = document.querySelector('.modal-content')
+let closeModal = document.querySelector('.close')
+
 
 
 
@@ -177,11 +181,11 @@ searchByDateForm.addEventListener('submit', (e) => {
   availableRoomsSection.innerHTML = '';
   availableRooms.forEach(room => {
     availableRoomsSection.innerHTML += `
-      <li class="reservation">
+      <button class="available-room" id='${room.data.number}'>
         <p>Type: ${room.data.roomType}</p>
         <p>Bed: ${room.data.numBeds} ${room.data.bedSize}</p>
         <p>Cost: $${room.data.costPerNight}</p>
-      </li>`
+      </button>`
   })
 
   showElement(searchByTypeForm)
@@ -192,7 +196,7 @@ searchByDateForm.addEventListener('submit', (e) => {
       roomTypes.push(room.data.roomType)
     }
   })
-  searchFilterByTypeSelection.innerHTML = ''
+  searchFilterByTypeSelection.innerHTML = '<option value="any">any</option>'
   roomTypes.forEach(room => {
   searchFilterByTypeSelection.innerHTML += `
     <option value="${room}">${room}</option>`
@@ -210,10 +214,21 @@ searchFilterByTypeSelection.addEventListener('change', (e) => {
   availableRoomsSection.innerHTML = ''
   availableRoomsByFilter.forEach(room => {
     availableRoomsSection.innerHTML += `
-      <li class="reservation">
+      <button class="available-room" id='${room.data.number}'>
         <p>Type: ${room.data.roomType}</p>
         <p>Bed: ${room.data.numBeds} ${room.data.bedSize}</p>
         <p>Cost: $${room.data.costPerNight}</p>
-      </li>`
+      </button>`
   })
+})
+
+availableRoomsSection.addEventListener('click', (e) => {
+  let targetId = e.target.getAttribute('id');
+  modal.style.display = 'block';
+  modalContent.innerHTML += targetId
+})
+
+closeModal.addEventListener('click', (e) => {
+  console.log("close")
+  modal.style.display = 'none';
 })

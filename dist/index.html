@@ -34,20 +34,34 @@
     <form class="search-by-date-form" id="searchByDateForm" name="searchByDateForm">
       <div>
         <label for="dateToBook">Date:</label>
-        <input type="date" id="dateToBook" name="dateToBook" required>
+        <input type="date" id="dateToBook" name="dateToBook" min="2022-04-24"required>
         <input type ="submit" value="Search for Date">
       </div>
     </form>
     <form class="search-by-type-form hidden" id="searchByTypeFilter" name="searchByTypeFilter">
       <div class="room-filter">
-          <label for="room-type-slection">choose a room type:</label>
+          <label for="room-type-selction">choose a room type:</label>
           <select id="select1" name="room-type-selection" class="room-type-selection">
             <option value="any">any</option>
-            <!-- available room options inject here -->
+            <!-- available room type options inject here -->
           </select>
         </div>
     </form>
     <section class="available-rooms-list">
+      <!-- available room options inject here -->
+    </section>
+  </section>
+  <section class="modal">
+    <section class="modal-content">
+    <button class="close">&times;</button>
+
+      <!-- <section class="more-modal-content"> -->
+        <!-- Here is the modal!
+        <p>lsdkjfs</p>
+        <p>lskdfs</p>
+        <p>lskdfls</p>
+        <p>lsdkkfs</p> -->
+      <!-- </section> -->
     </section>
   </section>
   <script src="bundle.js"></script>

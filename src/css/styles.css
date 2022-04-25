@@ -2,7 +2,9 @@
   border: solid red 2px;
 }
 
-
+p {
+  pointer-events: none;
+}
 
 .dashboard {
   display: flex;
@@ -28,6 +30,54 @@
   flex-direction: row;
   flex-wrap: wrap;
   list-style: none;
+}
+
+
+.available-room {
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 8;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  padding-top: 300px;
+  left: 0;
+  top: 0;
+
+}
+
+.modal-content {
+  background-color: #FFFBE6;
+  /* margin: 20px; */
+  padding: 20px;
+  border: 1px solid #888;
+  height: inherit;
+  width: 80%;
+  font-family: 'Montserrat', sans-serif;
+  color: #356859;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  margin: 10px;
+  /* font-size: 50px; */
+  /* font-weight: bold; */
+  /* padding: 10px; */
+  z-index: 10
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .hidden{
