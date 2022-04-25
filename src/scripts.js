@@ -15,7 +15,7 @@ import './images/turing-logo.png'
 // ----------------- IMPORTS ----------------- //
 
 
-import { getFetch } from './apiCalls.js';
+import { getFetch, addBooking } from './apiCalls.js';
 import CustomerRepository from './classes/customerRepository';
 import Customer from './classes/customer';
 import RoomRepository from './classes/roomRepository';
@@ -86,6 +86,16 @@ const getApiData = () => {
   });
 };
 
+const refreshBookings = () => {
+  Promise.all([
+    getFetch('customers'),
+    getFetch('rooms'),
+    getFetch('bookings')
+  ]).then(data => {
+    refreshDataInstances(data)
+  })
+}
+
 const createDataInstances = (data) => {
   console.log(data)
   customerList = new CustomerRepository(data[0].customers);
@@ -93,6 +103,13 @@ const createDataInstances = (data) => {
   bookingList = new BookingRepository(data[2].bookings);
   //UPDATE USER FUNCTIONALITY IN ITERATION 2
   user = customerList.customerList[25]
+}
+
+const refreshDataInstances = (data) => {
+  customerList = new CustomerRepository(data[0].customers);
+  roomList = new RoomRepository(data[1].rooms);
+  bookingList = new BookingRepository(data[2].bookings);
+  user = customerList.customerList.find(customer => user.id === customer.id)
 }
 
 const getTodaysDate = () => {
@@ -125,6 +142,7 @@ const displayUpcomingBookings = () => {
     else current.push(booking)
   });
 
+  upcomingBookings.innerHTML = ''
   current.forEach(booking => {
     upcomingBookings.innerHTML += `
     <li class="reservation">
@@ -135,6 +153,7 @@ const displayUpcomingBookings = () => {
     </li>`
   });
 
+  pastBookings.innerHTML = ''
   past.forEach(booking => {
     pastBookings.innerHTML += `
     <li class="reservation">
@@ -154,10 +173,6 @@ const displayTotalSpent = () => {
 const displayUserName = () => {
   header.innerText = `Welcome, ${user.name}`
 }
-
-
-
-
 
 // ----------------- EVENT LISTENERS ----------------- //
 
@@ -238,5 +253,15 @@ closeModal.addEventListener('click', (e) => {
 })
 
 confirmBookingButton.addEventListener('click', (e) => {
-  console.log("TIME TO BOOK!")
+  const newBooking = {
+    userID: user.id,
+    date: searchDate,
+    roomNumber: selectedRoom.data.number
+  }
+  console.log(newBooking)
+  addBooking(newBooking)
+  modal.style.display = 'none';
+  refreshBookings();
+  displayUpcomingBookings();
+  displayTotalSpent();
 })
