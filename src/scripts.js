@@ -227,15 +227,27 @@ searchFilterByTypeSelection.addEventListener('change', (e) => {
   let availableRoomsByDate = roomList.roomList.filter(room => (!bookedRoomsByDate.includes(room.data.number)))
   let availableRoomsByFilter = availableRoomsByDate.filter(room => room.data.roomType === searchFilterByTypeSelection.value)
 
-  availableRoomsSection.innerHTML = ''
-  availableRoomsByFilter.forEach(room => {
-    availableRoomsSection.innerHTML += `
-      <button class="available-room" id='${room.data.number}'>
-        <p>Type: ${room.data.roomType}</p>
-        <p>Bed: ${room.data.numBeds} ${room.data.bedSize}</p>
-        <p>Cost: $${room.data.costPerNight}</p>
-      </button>`
-  })
+  if (searchFilterByTypeSelection.value === "any") {
+    availableRoomsSection.innerHTML = ''
+    availableRoomsByDate.forEach(room => {
+      availableRoomsSection.innerHTML += `
+        <button class="available-room" id='${room.data.number}'>
+          <p>Type: ${room.data.roomType}</p>
+          <p>Bed: ${room.data.numBeds} ${room.data.bedSize}</p>
+          <p>Cost: $${room.data.costPerNight}</p>
+        </button>`
+    })
+  } else {
+    availableRoomsSection.innerHTML = ''
+    availableRoomsByFilter.forEach(room => {
+      availableRoomsSection.innerHTML += `
+        <button class="available-room" id='${room.data.number}'>
+          <p>Type: ${room.data.roomType}</p>
+          <p>Bed: ${room.data.numBeds} ${room.data.bedSize}</p>
+          <p>Cost: $${room.data.costPerNight}</p>
+        </button>`
+    })
+  }
 })
 
 clearSearchButton.addEventListener('click', (e) => {
@@ -243,8 +255,6 @@ clearSearchButton.addEventListener('click', (e) => {
   searchByDateInput.value = ''
   hideElement(searchByTypeForm)
   hideElement(clearSearchButton)
-  //reset room type
-  //rest available bookings
   availableRoomsSection.innerHTML = ''
 })
 
