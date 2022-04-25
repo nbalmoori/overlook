@@ -1,15 +1,17 @@
 import chai from 'chai';
 const expect = chai.expect;
 import Booking from '../src/classes/booking'
-import { bookings } from './test-data'
+import RoomRepository from '../src/classes/roomRepository'
+import { bookings, rooms } from './test-data'
 
 describe('Room', function() {
 
-  let booking1, booking2;
+  let booking1, booking2, roomRepository;
 
   beforeEach(() => {
     booking1 = new Booking(bookings[0]);
     booking2 = new Booking(bookings[1]);
+    roomRepository = new RoomRepository(rooms);
   });
 
   it('should be a function', function() {
@@ -20,7 +22,7 @@ describe('Room', function() {
     expect(booking1).to.be.an.instanceOf(Booking);
   });
 
-  it('should be able to take bookings data', () => {
+  it('should be able to take bookings data', function() {
     expect(booking1.data).to.deep.equal({
       id: '5fwrgu4i7k55hl6sz',
       userID: 4,
@@ -32,6 +34,19 @@ describe('Room', function() {
       userID: 3,
       date: '2022/01/24',
       roomNumber: 2
+    });
+  });
+
+  it('should be able to get room info', function() {
+    expect(booking1.getRoomInfo(roomRepository)).to.deep.equal({
+      data: {
+        number: 1,
+        roomType: 'residential suite',
+        bidet: true,
+        bedSize: 'queen',
+        numBeds: 1,
+        costPerNight: 358.4
+      }
     });
   });
 });
