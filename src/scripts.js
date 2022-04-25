@@ -35,6 +35,7 @@ let bookButton = document.querySelector('.book-button');
 
 // --------BOOKING VIEW-------- //
 let bookingView = document.querySelector('.booking-view');
+let searchHeader = document.querySelector('.search-header');
 let searchOptions = document.querySelector('.search-options');
 let searchByDateForm = document.querySelector('.search-by-date-form');
 let searchByDateInput = document.querySelector('#dateToBook')
@@ -46,7 +47,6 @@ let availableRoomsSection = document.querySelector('.available-rooms-list')
 let modal = document.querySelector('.modal')
 let modalContent = document.querySelector('.modal-content')
 let modalBookingDetails = document.querySelector('.modal-booking-details')
-// let confirmBookingButton = document.querySelector('.confirm-booking-button')
 let closeModal = document.querySelector('.close')
 
 
@@ -182,6 +182,9 @@ bookButton.addEventListener('click', (e) => {
   hideElement(dashboard)
   showElement(bookingView)
   availableRoomsSection.innerHTML = ''
+  showElement(availableRoomsSection)
+  showElement(searchOptions)
+  searchHeader.innerText = `Search to Book!`
 })
 
 dashboardButton.addEventListener('click', (e) => {
@@ -199,14 +202,19 @@ searchByDateForm.addEventListener('submit', (e) => {
   let bookedRoomsByDate = bookingList.bookingList.filter(booking => booking.data.date === searchDate).map(booking => booking.data.roomNumber)
   let availableRooms = roomList.roomList.filter(room => (!bookedRoomsByDate.includes(room.data.number)))
   availableRoomsSection.innerHTML = '';
-  availableRooms.forEach(room => {
-    availableRoomsSection.innerHTML += `
-      <button class="available-room" id='${room.data.number}'>
-        <p>Type: ${room.data.roomType}</p>
-        <p>Bed: ${room.data.numBeds} ${room.data.bedSize}</p>
-        <p>Cost: $${room.data.costPerNight}</p>
-      </button>`
-  })
+  if (availableRooms.length > 0) {
+    availableRooms.forEach(room => {
+      availableRoomsSection.innerHTML += `
+        <button class="available-room" id='${room.data.number}'>
+          <p>Type: ${room.data.roomType}</p>
+          <p>Bed: ${room.data.numBeds} ${room.data.bedSize}</p>
+          <p>Cost: $${room.data.costPerNight}</p>
+        </button>`
+    })
+  } else {
+    availableRoomsSection.innerHTML = `<h2>We are sorry - we're all booked for the options chosen! Please clear your search to visit us on a different date.</h2>`
+  }
+
 
   showElement(searchByTypeForm)
   showElement(clearSearchButton)
@@ -219,6 +227,7 @@ searchByDateForm.addEventListener('submit', (e) => {
     }
   })
   searchFilterByTypeSelection.innerHTML = '<option value="any">any</option>'
+
   roomTypes.forEach(room => {
   searchFilterByTypeSelection.innerHTML += `
     <option value="${room}">${room}</option>`
@@ -292,7 +301,8 @@ modalBookingDetails.addEventListener('click', (e) => {
     addBooking(newBooking)
     modal.style.display = 'none';
     hideElement(availableRoomsSection)
-    searchOptions.innerHTML = `<h2> Thanks for booking with Overlook!</h2>`
+    hideElement(searchOptions)
+    searchHeader.innerText = `Thanks for booking with Overlook!`
   }
 })
 
