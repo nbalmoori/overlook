@@ -18,12 +18,12 @@
           <button class="book-button">Book a Room!</button>
         </div>
         <section class="upcoming-bookings">
-          Your Upcoming Bookings:
+          <h2>Your Upcoming Bookings: </h1>
           <ul class="upcoming-bookings-list">
           </ul>
         </section>
         <section class="past-bookings">
-          Your Past Bookings:
+          <h2>Your Past Bookings: </h1>
           <ul class="past-bookings-list">
           </ul>
         </section>
@@ -31,6 +31,7 @@
   </section>
   <section class="booking-view hidden">
     <button class="dashboard-button">Back to Dashboard</button>
+    <h1> Search to book! </h1>
     <form class="search-by-date-form" id="searchByDateForm" name="searchByDateForm">
       <div>
         <label for="dateToBook">Date:</label>
@@ -53,15 +54,12 @@
   </section>
   <section class="modal">
     <section class="modal-content">
-    <button class="close">&times;</button>
+    <span class="close">&times;</span>
 
-      <!-- <section class="more-modal-content"> -->
-        <!-- Here is the modal!
-        <p>lsdkjfs</p>
-        <p>lskdfs</p>
-        <p>lskdfls</p>
-        <p>lsdkkfs</p> -->
-      <!-- </section> -->
+      <section class="modal-booking-details">
+        <!-- room booking details insert here -->
+      </section>
+      <button class="confirm-booking-button">Book this room!</button>
     </section>
   </section>
   <script src="bundle.js"></script>

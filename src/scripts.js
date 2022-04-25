@@ -42,6 +42,8 @@ let searchTypeDropdown = document.querySelector('.type-dropdown-content');
 let availableRoomsSection = document.querySelector('.available-rooms-list')
 let modal = document.querySelector('.modal')
 let modalContent = document.querySelector('.modal-content')
+let modalBookingDetails = document.querySelector('.modal-booking-details')
+let confirmBookingButton = document.querySelector('.confirm-booking-button')
 let closeModal = document.querySelector('.close')
 
 
@@ -57,7 +59,8 @@ let customerList;
 let roomList;
 let bookingList;
 let searchDate;
-let searchFilter;
+// let searchFilter;
+let selectedRoom;
 
 
 // ----------------- FUNCTIONS ----------------- //
@@ -175,7 +178,6 @@ searchByDateForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   searchDate = formData.get('dateToBook').split("-").join("/")
-  console.log(searchDate)
   let bookedRoomsByDate = bookingList.bookingList.filter(booking => booking.data.date === searchDate).map(booking => booking.data.roomNumber)
   let availableRooms = roomList.roomList.filter(room => (!bookedRoomsByDate.includes(room.data.number)))
   availableRoomsSection.innerHTML = '';
@@ -204,9 +206,6 @@ searchByDateForm.addEventListener('submit', (e) => {
 })
 
 searchFilterByTypeSelection.addEventListener('change', (e) => {
-  console.log(searchFilterByTypeSelection.value)
-  console.log(searchDate)
-
   let bookedRoomsByDate = bookingList.bookingList.filter(booking => booking.data.date === searchDate).map(booking => booking.data.roomNumber)
   let availableRoomsByDate = roomList.roomList.filter(room => (!bookedRoomsByDate.includes(room.data.number)))
   let availableRoomsByFilter = availableRoomsByDate.filter(room => room.data.roomType === searchFilterByTypeSelection.value)
@@ -224,11 +223,20 @@ searchFilterByTypeSelection.addEventListener('change', (e) => {
 
 availableRoomsSection.addEventListener('click', (e) => {
   let targetId = e.target.getAttribute('id');
+  selectedRoom = roomList.getRoomById(parseInt(targetId))
   modal.style.display = 'block';
-  modalContent.innerHTML += targetId
+  modalBookingDetails.innerHTML = `
+    <h2>CONFIRM BOOKING</h2>
+    <p>Date: ${searchDate}</p>
+    <p>Type: ${selectedRoom.data.roomType}</p>
+    <p>Bed: ${selectedRoom.data.numBeds} ${selectedRoom.data.bedSize}</p>
+    <p>Cost: $${selectedRoom.data.costPerNight}</p>`
 })
 
 closeModal.addEventListener('click', (e) => {
-  console.log("close")
   modal.style.display = 'none';
+})
+
+confirmBookingButton.addEventListener('click', (e) => {
+  console.log("TIME TO BOOK!")
 })
