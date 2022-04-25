@@ -27,4 +27,17 @@ describe('RoomRepository', function() {
   it('should hold instances of Room class', () => {
     expect(roomRepository.roomList[0]).to.be.an.instanceOf(Room);
   });
+
+  it('should be able to return a room by Id', () => {
+    expect(roomRepository.getRoomById(2)).to.deep.equal({
+      data: {
+        number: 2,
+        roomType: 'suite',
+        bidet: false,
+        bedSize: 'full',
+        numBeds: 2,
+        costPerNight: 477.38
+      }
+    });
+  });
 });
