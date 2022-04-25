@@ -32,22 +32,25 @@
   <section class="booking-view hidden">
     <button class="dashboard-button">Back to Dashboard</button>
     <h1> Search to book! </h1>
-    <form class="search-by-date-form" id="searchByDateForm" name="searchByDateForm">
-      <div>
-        <label for="dateToBook">Date:</label>
-        <input type="date" id="dateToBook" name="dateToBook" min="2022-04-24"required>
-        <input type ="submit" value="Search for Date">
-      </div>
-    </form>
-    <form class="search-by-type-form hidden" id="searchByTypeFilter" name="searchByTypeFilter">
-      <div class="room-filter">
+    <section class="search-options">
+      <form class="search-by-date-form" id="searchByDateForm" name="searchByDateForm">
+        <div>
+          <label for="dateToBook">Date:</label>
+          <input type="date" id="dateToBook" name="dateToBook" min="2022-04-24"required>
+          <input type ="submit" value="Search for Date">
+        </div>
+      </form>
+      <form class="search-by-type-form hidden" id="searchByTypeFilter" name="searchByTypeFilter">
+        <div class="room-filter">
           <label for="room-type-selction">choose a room type:</label>
           <select id="select1" name="room-type-selection" class="room-type-selection">
             <option value="any">any</option>
             <!-- available room type options inject here -->
           </select>
         </div>
-    </form>
+      </form>
+      <button class="clear-search-button">Clear Search</button>
+    </section>
     <section class="available-rooms-list">
       <!-- available room options inject here -->
     </section>

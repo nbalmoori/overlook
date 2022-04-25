@@ -36,9 +36,11 @@ let bookButton = document.querySelector('.book-button');
 // --------BOOKING VIEW-------- //
 let bookingView = document.querySelector('.booking-view');
 let searchByDateForm = document.querySelector('.search-by-date-form');
+let searchByDateInput = document.querySelector('#dateToBook')
 let searchByTypeForm = document.querySelector('.search-by-type-form');
 let searchFilterByTypeSelection = document.querySelector('.room-type-selection');
 let searchTypeDropdown = document.querySelector('.type-dropdown-content');
+let clearSearchButton = document.querySelector('.clear-search-button');
 let availableRoomsSection = document.querySelector('.available-rooms-list')
 let modal = document.querySelector('.modal')
 let modalContent = document.querySelector('.modal-content')
@@ -234,6 +236,16 @@ searchFilterByTypeSelection.addEventListener('change', (e) => {
         <p>Cost: $${room.data.costPerNight}</p>
       </button>`
   })
+})
+
+clearSearchButton.addEventListener('click', (e) => {
+  console.log("clear!")
+  searchByDateInput.value = ''
+  hideElement(searchByTypeForm)
+  hideElement(clearSearchButton)
+  //reset room type
+  //rest available bookings
+  availableRoomsSection.innerHTML = ''
 })
 
 availableRoomsSection.addEventListener('click', (e) => {
