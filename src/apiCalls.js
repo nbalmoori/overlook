@@ -1,9 +1,13 @@
+import {refreshBookings, header} from './scripts.js';
+
+let postErrorMessage = document.querySelector('.post-error-message');
+
+
 const getFetch = (address) => {
   return fetch(`http://localhost:3001/api/v1/${address}`)
   .then(response => response.json())
   .catch((error) => {
-    //remember to update to change HTML
-    console.log('Error loading data. Please try again later.');
+    header.innerText = 'Error loading data. Please try again later.';
   });
 };
 
@@ -20,16 +24,10 @@ const addBooking = (newBooking) => {
       return response.json()
     }
   })
-  .then(response => console.log("POSTED", response))
-  // .then(response => refreshPantry(newIngredient.userID))
+  .then(response => refreshBookings())
   .catch(error => {
-    showError('There was an issue adding this booking. Try again!')
+    postErrorMessage.innerText = 'There was an issue adding this booking. Try again!'
   });
 }
 
-
-
-
-
-
-export { getFetch, addBooking }
+export { getFetch, addBooking, postErrorMessage }
