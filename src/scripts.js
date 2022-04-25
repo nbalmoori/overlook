@@ -15,7 +15,7 @@ import './images/turing-logo.png'
 // ----------------- IMPORTS ----------------- //
 
 
-import { getFetch, addBooking } from './apiCalls.js';
+import { getFetch, addBooking, postErrorMessage } from './apiCalls.js';
 import CustomerRepository from './classes/customerRepository';
 import Customer from './classes/customer';
 import RoomRepository from './classes/roomRepository';
@@ -35,6 +35,7 @@ let bookButton = document.querySelector('.book-button');
 
 // --------BOOKING VIEW-------- //
 let bookingView = document.querySelector('.booking-view');
+let searchOptions = document.querySelector('.search-options');
 let searchByDateForm = document.querySelector('.search-by-date-form');
 let searchByDateInput = document.querySelector('#dateToBook')
 let searchByTypeForm = document.querySelector('.search-by-type-form');
@@ -45,7 +46,7 @@ let availableRoomsSection = document.querySelector('.available-rooms-list')
 let modal = document.querySelector('.modal')
 let modalContent = document.querySelector('.modal-content')
 let modalBookingDetails = document.querySelector('.modal-booking-details')
-let confirmBookingButton = document.querySelector('.confirm-booking-button')
+// let confirmBookingButton = document.querySelector('.confirm-booking-button')
 let closeModal = document.querySelector('.close')
 
 
@@ -55,15 +56,10 @@ let dashboardButton = document.querySelector('.dashboard-button');
 
 
 // ----------------- GLOBAL VARIABLES ----------------- //
-let currentDate;
 let user;
 let customerList;
 let roomList;
 let bookingList;
-let searchDate;
-// let searchFilter;
-let selectedRoom;
-
 
 // ----------------- FUNCTIONS ----------------- //
 
@@ -95,6 +91,8 @@ const refreshBookings = () => {
     getFetch('bookings')
   ]).then(data => {
     refreshDataInstances(data)
+    displayUpcomingBookings();
+    displayTotalSpent();
   })
 }
 
@@ -119,15 +117,14 @@ const getTodaysDate = () => {
   let dd = String(today.getDate()).padStart(2, '0');
   let mm = String(today.getMonth() +1).padStart(2, '0');
   let yyyy = today.getFullYear();
-  currentDate = `${yyyy}/${mm}/${dd}`;
+  return `${yyyy}/${mm}/${dd}`;
 };
 
 const displayUpcomingBookings = () => {
   let current = [];
   let past = [];
 
-  getTodaysDate();
-  let splitCurrentDate = currentDate.split("/");
+  let splitCurrentDate = getTodaysDate().split("/");
   let userBookings = user.getBookings(bookingList);
 
   userBookings.forEach(booking => {
@@ -176,6 +173,7 @@ const displayUserName = () => {
   header.innerText = `Welcome, ${user.name}`
 }
 
+
 // ----------------- EVENT LISTENERS ----------------- //
 
 window.addEventListener('load', getApiData);
@@ -189,12 +187,15 @@ bookButton.addEventListener('click', (e) => {
 dashboardButton.addEventListener('click', (e) => {
   showElement(dashboard)
   hideElement(bookingView)
+  searchByDateInput.value = ''
+  hideElement(searchByTypeForm)
+  hideElement(clearSearchButton)
 })
 
 searchByDateForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
-  searchDate = formData.get('dateToBook').split("-").join("/")
+  let searchDate = formData.get('dateToBook').split("-").join("/")
   let bookedRoomsByDate = bookingList.bookingList.filter(booking => booking.data.date === searchDate).map(booking => booking.data.roomNumber)
   let availableRooms = roomList.roomList.filter(room => (!bookedRoomsByDate.includes(room.data.number)))
   availableRoomsSection.innerHTML = '';
@@ -208,6 +209,8 @@ searchByDateForm.addEventListener('submit', (e) => {
   })
 
   showElement(searchByTypeForm)
+  showElement(clearSearchButton)
+
 
   let roomTypes = [];
   availableRooms.forEach(room => {
@@ -220,10 +223,12 @@ searchByDateForm.addEventListener('submit', (e) => {
   searchFilterByTypeSelection.innerHTML += `
     <option value="${room}">${room}</option>`
   })
+
+  console.log(searchByDateInput.value.split("-").join("/"))
 })
 
 searchFilterByTypeSelection.addEventListener('change', (e) => {
-  let bookedRoomsByDate = bookingList.bookingList.filter(booking => booking.data.date === searchDate).map(booking => booking.data.roomNumber)
+  let bookedRoomsByDate = bookingList.bookingList.filter(booking => booking.data.date === searchByDateInput.value.split("-").join("/")).map(booking => booking.data.roomNumber)
   let availableRoomsByDate = roomList.roomList.filter(room => (!bookedRoomsByDate.includes(room.data.number)))
   let availableRoomsByFilter = availableRoomsByDate.filter(room => room.data.roomType === searchFilterByTypeSelection.value)
 
@@ -251,7 +256,6 @@ searchFilterByTypeSelection.addEventListener('change', (e) => {
 })
 
 clearSearchButton.addEventListener('click', (e) => {
-  console.log("clear!")
   searchByDateInput.value = ''
   hideElement(searchByTypeForm)
   hideElement(clearSearchButton)
@@ -260,30 +264,36 @@ clearSearchButton.addEventListener('click', (e) => {
 
 availableRoomsSection.addEventListener('click', (e) => {
   let targetId = e.target.getAttribute('id');
-  selectedRoom = roomList.getRoomById(parseInt(targetId))
+  let selectedRoom = roomList.getRoomById(parseInt(targetId))
   modal.style.display = 'block';
   modalBookingDetails.innerHTML = `
     <h2>CONFIRM BOOKING</h2>
-    <p>Date: ${searchDate}</p>
+    <p>Date: ${searchByDateInput.value.split("-").join("/")}</p>
     <p>Type: ${selectedRoom.data.roomType}</p>
     <p>Bed: ${selectedRoom.data.numBeds} ${selectedRoom.data.bedSize}</p>
-    <p>Cost: $${selectedRoom.data.costPerNight}</p>`
+    <p>Cost: $${selectedRoom.data.costPerNight}</p>
+    <button class="confirm-booking-button" id="${targetId}">Book this room!</button>`
 })
 
 closeModal.addEventListener('click', (e) => {
   modal.style.display = 'none';
 })
 
-confirmBookingButton.addEventListener('click', (e) => {
-  const newBooking = {
-    userID: user.id,
-    date: searchDate,
-    roomNumber: selectedRoom.data.number
+modalBookingDetails.addEventListener('click', (e) => {
+  if (event.target.className === "confirm-booking-button") {
+    let targetId = e.target.getAttribute('id');
+    console.log(targetId)
+    const newBooking = {
+      userID: user.id,
+      date: searchByDateInput.value.split("-").join("/"),
+      roomNumber: parseInt(targetId)
+    };
+    console.log(newBooking)
+    addBooking(newBooking)
+    modal.style.display = 'none';
+    hideElement(availableRoomsSection)
+    searchOptions.innerHTML = `<h2> Thanks for booking with Overlook!</h2>`
   }
-  console.log(newBooking)
-  addBooking(newBooking)
-  modal.style.display = 'none';
-  refreshBookings();
-  displayUpcomingBookings();
-  displayTotalSpent();
 })
+
+export {refreshBookings, header}
