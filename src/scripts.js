@@ -81,7 +81,6 @@ const refreshBookings = () => {
 }
 
 const createDataInstances = (data) => {
-
   roomList = new RoomRepository(data[1].rooms);
   bookingList = new BookingRepository(data[2].bookings);
   customerList = new CustomerRepository(data[0].customers, bookingList);
@@ -90,7 +89,6 @@ const createDataInstances = (data) => {
 }
 
 const refreshDataInstances = (data) => {
-
   roomList = new RoomRepository(data[1].rooms);
   bookingList = new BookingRepository(data[2].bookings);
   customerList = new CustomerRepository(data[0].customers, bookingList);
@@ -233,6 +231,7 @@ availableRoomsSection.addEventListener('click', (e) => {
     <p>Type: ${selectedRoom.data.roomType}</p>
     <p>Bed: ${selectedRoom.data.numBeds} ${selectedRoom.data.bedSize}</p>
     <p>Cost: $${selectedRoom.data.costPerNight}</p>
+    <p>Bidet: ${selectedRoom.data.bidet}</p>
     <button class="confirm-booking-button" id="${targetId}">Book this room!</button>`;
 });
 

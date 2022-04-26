@@ -22,12 +22,9 @@ h2{
   display: flex;
 }
 
-.book-a-stay {
-  /* width: 35% */
-}
-
-.reservations-container {
-  /* width: 65% */
+.reservation {
+  height: 250px;
+  width: 250px;
 }
 
 .upcoming-bookings-list,
