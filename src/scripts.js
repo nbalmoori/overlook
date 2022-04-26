@@ -1,14 +1,8 @@
-// An example of how you tell webpack to use a CSS (SCSS) file
-import './css/styles.css';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
-import './images/pool-image.jpg'
-import './images/login-pool-image.jpg'
-
-
 // ----------------- IMPORTS ------------------------------------------------- //
 
+import './css/styles.css';
+import './images/pool-image.jpg';
+import './images/login-pool-image.jpg';
 import { getFetch, addBooking, postErrorMessage } from './apiCalls.js';
 import CustomerRepository from './classes/customerRepository';
 import Customer from './classes/customer';
@@ -34,11 +28,13 @@ let totalSpent = document.querySelector('.total-spent');
 let bookButton = document.querySelector('.book-button');
 
 // --------BOOKING VIEW-------- //
+
 let bookingView = document.querySelector('.booking-view');
 let searchHeader = document.querySelector('.search-header');
 let searchOptions = document.querySelector('.search-options');
 let searchByDateForm = document.querySelector('.search-by-date-form');
 let searchByDateInput = document.querySelector('#dateToBook');
+let searchDateButton = document.querySelector('.search-date-button');
 let searchByTypeForm = document.querySelector('.search-by-type-form');
 let searchFilterByTypeSelection = document.querySelector('.room-type-selection');
 let searchTypeDropdown = document.querySelector('.type-dropdown-content');
@@ -66,23 +62,6 @@ const hideElement = (element) => {
   element.classList.add('hidden');
 };
 
-const verifyUser = () => {
-  if (
-    usernameInput.value.startsWith('customer') &&
-    0 < usernameInput.value.slice(8) < 50 &&
-    passwordInput.value === 'overlook2021'
-  ) {
-    user = customerList.customerList.find(user => user.id === parseInt(usernameInput.value.slice(8)))
-    getBookings();
-    displayTotalSpent();
-    displayUserName();
-    hideElement(loginView)
-    showElement(dashboard)
-  } else {
-    loginError.innerText = 'Incorrect username or password. Please try again!'
-  }
-}
-
 const getApiData = () => {
   Promise.all([
     getFetch('customers'),
@@ -102,16 +81,31 @@ const refreshBookings = () => {
     refreshDataInstances(data);
     getBookings();
     displayTotalSpent();
-  })
-}
+  });
+};
+
+const verifyUser = () => {
+  if (
+    usernameInput.value.startsWith('customer') &&
+    0 < usernameInput.value.slice(8) < 50 &&
+    passwordInput.value === 'overlook2021'
+  ) {
+    user = customerList.customerList.find(user => user.id === parseInt(usernameInput.value.slice(8)));
+    getBookings();
+    displayTotalSpent();
+    displayUserName();
+    hideElement(loginView);
+    showElement(dashboard);
+  } else {
+    loginError.innerText = 'Incorrect username or password. Please try again!';
+  };
+};
 
 const createDataInstances = (data) => {
   roomList = new RoomRepository(data[1].rooms);
   bookingList = new BookingRepository(data[2].bookings);
   customerList = new CustomerRepository(data[0].customers, bookingList);
-  //UPDATE USER FUNCTIONALITY IN ITERATION 3
-  // user = customerList.customerList[25];
-}
+};
 
 const refreshDataInstances = (data) => {
   roomList = new RoomRepository(data[1].rooms);
@@ -121,8 +115,8 @@ const refreshDataInstances = (data) => {
 }
 
 const getBookings = () => {
-  let current = user.getCurrentBookings(bookingList)
-  let past = user.getPastBookings(bookingList)
+  let current = user.getCurrentBookings(bookingList);
+  let past = user.getPastBookings(bookingList);
 
   upcomingBookings.innerHTML = '';
   current.forEach(booking => {
@@ -163,8 +157,8 @@ logInButton.addEventListener('click', (e) => {
   if (username.value && password.value) {
     e.preventDefault();
     verifyUser();
-  }
-})
+  };
+});
 
 bookButton.addEventListener('click', (e) => {
   hideElement(dashboard);
@@ -173,6 +167,7 @@ bookButton.addEventListener('click', (e) => {
   showElement(searchOptions);
   availableRoomsSection.innerHTML = '';
   searchHeader.innerText = `Search to Book!`;
+  searchByDateInput.setAttribute("min", `${user.getTodaysDate().split("/").join("-")}`)
 });
 
 dashboardButton.addEventListener('click', (e) => {
@@ -183,10 +178,9 @@ dashboardButton.addEventListener('click', (e) => {
   searchByDateInput.value = '';
 });
 
-searchByDateForm.addEventListener('submit', (e) => {
+searchDateButton.addEventListener('click', (e) => {
   e.preventDefault();
-  const formData = new FormData(e.target);
-  let searchDate = formData.get('dateToBook').split("-").join("/");
+  let searchDate = searchByDateInput.value.split("-").join("/");
   let bookedRoomsByDate = bookingList.bookingList.filter(booking => booking.data.date === searchDate).map(booking => booking.data.roomNumber);
   let availableRooms = roomList.roomList.filter(room => (!bookedRoomsByDate.includes(room.data.number)));
   availableRoomsSection.innerHTML = '';
@@ -249,7 +243,7 @@ clearSearchButton.addEventListener('click', (e) => {
   hideElement(clearSearchButton);
   availableRoomsSection.innerHTML = '';
   searchByDateInput.value = '';
-})
+});
 
 availableRoomsSection.addEventListener('click', (e) => {
   let targetId = e.target.getAttribute('id');
