@@ -25,12 +25,15 @@ This application was the final solo project built by Nikki Balmoori during Mod 2
 ## Application in Action
 
 
-
-
 - To log in, enter `customer` followed by a number between 1 and 50 in the username field. The password for all users is `overlook2021`.
-- On the dashboard view, a user can see their upcoming and past bookings, as well as the total amount they have spent at the hotel so far.
-- After clicking the "Make a Reservation" button, the user is taken to a new page where they can search for a new reservation based on date and room type.
 
+![overlook-giphy-login](https://user-images.githubusercontent.com/95309774/165387954-ebb30b7f-9b35-4c9b-bca6-5d7a92a887c2.gif)
+
+- On the dashboard view, a user can see their upcoming and past bookings, as well as the total amount they have spent at the hotel so far.
+
+![overlook-giphy-reservation](https://user-images.githubusercontent.com/95309774/165388944-c1baf16e-ad73-4a78-9d36-3efebfad36aa.gif)
+
+- After clicking the "Make a Reservation" button, the user is taken to a new page where they can search for a new reservation based on date and room type.
 
 ## Future Additions
 - A "manager" class that can: 
