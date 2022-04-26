@@ -4,6 +4,8 @@ import './css/styles.css';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 import './images/pool-image.jpg'
+import './images/login-pool-image.jpg'
+
 
 // ----------------- IMPORTS ------------------------------------------------- //
 
@@ -15,7 +17,10 @@ import BookingRepository from './classes/bookingRepository';
 
 // ----------------- QUERY SELECTORS ----------------------------------------- //
 
-// --------DASHBOARD-------- //
+// --------LOGIN--------------- //
+
+
+// --------DASHBOARD----------- //
 let dashboard = document.querySelector('.dashboard');
 let header = document.querySelector('.welcome-header');
 let upcomingBookings = document.querySelector('.upcoming-bookings-list');
