@@ -1,9 +1,9 @@
 import Customer from './customer';
 
 class CustomerRepository {
-  constructor(customersInfo) {
+  constructor(customersInfo, bookingRepo) {
     this.rawData = customersInfo
-    this.customerList = customersInfo.map(customerInfo => new Customer(customerInfo.name, customerInfo.id))
+    this.customerList = customersInfo.map(customerInfo => new Customer(customerInfo.name, customerInfo.id), bookingRepo)
   }
 }
 

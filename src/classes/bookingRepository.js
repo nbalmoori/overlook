@@ -5,6 +5,10 @@ class BookingRepository {
     this.rawData = bookingsInfo
     this.bookingList = bookingsInfo.map(bookingInfo => new Booking(bookingInfo))
   }
+
+  findBookingByUser(userID) {
+    return this.bookingList.filter(booking => booking.data.userID === userID)
+  }
 }
 
 export default BookingRepository;
