@@ -18,7 +18,12 @@ import BookingRepository from './classes/bookingRepository';
 // ----------------- QUERY SELECTORS ----------------------------------------- //
 
 // --------LOGIN--------------- //
-
+let loginView = document.querySelector('.login');
+let logInButton = document.querySelector('.login-button');
+let loginForm = document.querySelector('.login-details');
+let usernameInput = document.querySelector('#username');
+let passwordInput = document.querySelector('#password');
+let loginError = document.querySelector('.login-error');
 
 // --------DASHBOARD----------- //
 let dashboard = document.querySelector('.dashboard');
@@ -61,6 +66,23 @@ const hideElement = (element) => {
   element.classList.add('hidden');
 };
 
+const verifyUser = () => {
+  if (
+    usernameInput.value.startsWith('customer') &&
+    0 < usernameInput.value.slice(8) < 50 &&
+    passwordInput.value === 'overlook2021'
+  ) {
+    user = customerList.customerList.find(user => user.id === parseInt(usernameInput.value.slice(8)))
+    getBookings();
+    displayTotalSpent();
+    displayUserName();
+    hideElement(loginView)
+    showElement(dashboard)
+  } else {
+    loginError.innerText = 'Incorrect username or password. Please try again!'
+  }
+}
+
 const getApiData = () => {
   Promise.all([
     getFetch('customers'),
@@ -68,9 +90,6 @@ const getApiData = () => {
     getFetch('bookings')
   ]).then(data => {
     createDataInstances(data);
-    getBookings();
-    displayTotalSpent();
-    displayUserName();
   });
 };
 
@@ -91,7 +110,7 @@ const createDataInstances = (data) => {
   bookingList = new BookingRepository(data[2].bookings);
   customerList = new CustomerRepository(data[0].customers, bookingList);
   //UPDATE USER FUNCTIONALITY IN ITERATION 3
-  user = customerList.customerList[25];
+  // user = customerList.customerList[25];
 }
 
 const refreshDataInstances = (data) => {
@@ -139,6 +158,13 @@ const displayUserName = () => {
 // ----------------- EVENT LISTENERS ----------------------------------------- //
 
 window.addEventListener('load', getApiData);
+
+logInButton.addEventListener('click', (e) => {
+  if (username.value && password.value) {
+    e.preventDefault();
+    verifyUser();
+  }
+})
 
 bookButton.addEventListener('click', (e) => {
   hideElement(dashboard);
