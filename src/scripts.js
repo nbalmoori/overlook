@@ -3,6 +3,7 @@ import './css/styles.css';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
+import './images/pool-image.jpg'
 
 // ----------------- IMPORTS ------------------------------------------------- //
 
@@ -16,7 +17,7 @@ import BookingRepository from './classes/bookingRepository';
 
 // --------DASHBOARD-------- //
 let dashboard = document.querySelector('.dashboard');
-let header = document.querySelector('header');
+let header = document.querySelector('.welcome-header');
 let upcomingBookings = document.querySelector('.upcoming-bookings-list');
 let pastBookings = document.querySelector('.past-bookings-list');
 let totalSpent = document.querySelector('.total-spent');
@@ -39,13 +40,13 @@ let modalBookingDetails = document.querySelector('.modal-booking-details');
 let closeModal = document.querySelector('.close');
 let dashboardButton = document.querySelector('.dashboard-button');
 
-// ----------------- GLOBAL VARIABLES ----------------- //
+// ----------------- GLOBAL VARIABLES ---------------------------------------- //
 let user;
 let customerList;
 let roomList;
 let bookingList;
 
-// ----------------- FUNCTIONS ----------------- //
+// ----------------- FUNCTIONS ----------------------------------------------- //
 
 const showElement = (element) => {
   element.classList.remove('hidden');
@@ -103,8 +104,7 @@ const getBookings = () => {
   current.forEach(booking => {
     upcomingBookings.innerHTML += `
     <li class="reservation">
-      <p>Date: ${booking.data.date} </p>
-      <p>Type: ${booking.getRoomInfo(roomList).data.roomType}</p>
+      <h3>${booking.getRoomInfo(roomList).data.roomType} on ${booking.data.date}</h3>
       <p>Bed: ${booking.getRoomInfo(roomList).data.numBeds} x ${booking.getRoomInfo(roomList).data.bedSize}</p>
       <p>Cost: $${booking.getRoomInfo(roomList).data.costPerNight}</p>
       <p>Bidet: ${booking.getRoomInfo(roomList).data.bidet}</p>
@@ -115,8 +115,7 @@ const getBookings = () => {
   past.forEach(booking => {
     pastBookings.innerHTML += `
     <li class="reservation">
-      <p>Date: ${booking.data.date} </p>
-      <p>Type: ${booking.getRoomInfo(roomList).data.roomType}</p>
+      <h3>${booking.getRoomInfo(roomList).data.roomType} on ${booking.data.date}</h3>
       <p>Bed: ${booking.getRoomInfo(roomList).data.numBeds} x ${booking.getRoomInfo(roomList).data.bedSize}</p>
       <p>Cost: $${booking.getRoomInfo(roomList).data.costPerNight}</p>
       <p>Bidet: ${booking.getRoomInfo(roomList).data.bidet}</p>
@@ -125,14 +124,14 @@ const getBookings = () => {
 };
 
 const displayTotalSpent = () => {
-  totalSpent.innerHTML = `Total Spent to Date: $${user.getTotalSpent(bookingList, roomList)}`;
+  totalSpent.innerHTML = `<p>Total Spent to Date: $${user.getTotalSpent(bookingList, roomList)}</p>`;
 };
 
 const displayUserName = () => {
   header.innerText = `Welcome, ${user.name}`;
 };
 
-// ----------------- EVENT LISTENERS ----------------- //
+// ----------------- EVENT LISTENERS ----------------------------------------- //
 
 window.addEventListener('load', getApiData);
 
@@ -164,8 +163,8 @@ searchByDateForm.addEventListener('submit', (e) => {
     availableRooms.forEach(room => {
       availableRoomsSection.innerHTML += `
         <button class="available-room" id='${room.data.number}'>
-          <p>Type: ${room.data.roomType}</p>
-          <p>Bed: ${room.data.numBeds} ${room.data.bedSize}</p>
+          <h3>available ${room.data.roomType}</h3>
+          <p>Bed: ${room.data.numBeds} x ${room.data.bedSize}</p>
           <p>Cost: $${room.data.costPerNight}</p>
         </button>`;
     });
@@ -196,8 +195,8 @@ searchFilterByTypeSelection.addEventListener('change', (e) => {
     availableRoomsByDate.forEach(room => {
       availableRoomsSection.innerHTML += `
         <button class="available-room" id='${room.data.number}'>
-          <p>Type: ${room.data.roomType}</p>
-          <p>Bed: ${room.data.numBeds} ${room.data.bedSize}</p>
+          <h3>available ${room.data.roomType}</h3>
+          <p>Bed: ${room.data.numBeds} x ${room.data.bedSize}</p>
           <p>Cost: $${room.data.costPerNight}</p>
         </button>`;
     });
@@ -206,8 +205,8 @@ searchFilterByTypeSelection.addEventListener('change', (e) => {
     availableRoomsByFilter.forEach(room => {
       availableRoomsSection.innerHTML += `
         <button class="available-room" id='${room.data.number}'>
-          <p>Type: ${room.data.roomType}</p>
-          <p>Bed: ${room.data.numBeds} ${room.data.bedSize}</p>
+          <h3>available ${room.data.roomType}</h3>
+          <p>Bed: ${room.data.numBeds} x ${room.data.bedSize}</p>
           <p>Cost: $${room.data.costPerNight}</p>
         </button>`;
     });

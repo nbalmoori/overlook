@@ -7,66 +7,71 @@
   <title>Overlook Hotel: Book Your Stay Today!</title>
 </head>
 <body>
-  <!-- <img src="./images/turing-logo.png" alt="turing logo"> -->
-
   <section class="dashboard">
-    <header>Welcome, username!</header>
-      <div class="reservations-container">
+    <!-- <img src="./images/pool-image.jpg" alt="couple lounging in pool"> -->
+    <header>OVERLOOK</header>
+    <div class="welcome">
+      <h1 class="welcome-header">Welcome, username!</h1>
+      <div class="welcome-details">
         <section class="total-spent">
+          <!-- total spent injects here -->
         </section>
-        <div class="new-booking-button-container">
-          <button class="book-button">Book a Room!</button>
-        </div>
-        <section class="upcoming-bookings">
-          <h2>Your Upcoming Bookings: </h2>
-          <ul class="upcoming-bookings-list">
-          </ul>
-        </section>
-        <section class="past-bookings">
-          <h2>Your Past Bookings: </h2>
-          <ul class="past-bookings-list">
-          </ul>
-        </section>
+        <button class="book-button">Make New Reservation</button>
       </div>
+    </div>
+    <div class="reservations-container">
+      <section class="upcoming-bookings">
+        <h2>Your Upcoming Bookings: </h2>
+        <ul class="upcoming-bookings-list">
+          <!-- upcoming bookings inject here -->
+        </ul>
+      </section>
+      <section class="past-bookings">
+        <h2>Your Past Bookings: </h2>
+        <ul class="past-bookings-list">
+          <!-- past bookings inject here -->
+        </ul>
+      </section>
+    </div>
   </section>
   <section class="booking-view hidden">
-    <button class="dashboard-button">Back to Dashboard</button>
-    <h1 class="search-header"> Search to book! </h1>
-    <section class="search-options">
-      <form class="search-by-date-form" id="searchByDateForm" name="searchByDateForm">
-        <div>
-          <label for="dateToBook">Date:</label>
-          <input type="date" id="dateToBook" name="dateToBook" min="2022-04-24"required>
-          <input type ="submit" value="Search for Date">
-        </div>
-      </form>
-      <form class="search-by-type-form hidden" id="searchByTypeFilter" name="searchByTypeFilter">
-        <div class="room-filter">
-          <label for="room-type-selction">choose a room type:</label>
-          <select id="select1" name="room-type-selection" class="room-type-selection">
-            <option value="any">any</option>
-            <!-- available room type options inject here -->
-          </select>
-        </div>
-      </form>
-      <button class="clear-search-button hidden">Clear Search</button>
-    </section>
+    <header>OVERLOOK</header>
+    <div class="search-section">
+      <button class="dashboard-button">Back to Dashboard</button>
+      <h1 class="search-header"> Search to book! </h1>
+      <section class="search-options">
+        <form class="search-by-date-form" id="searchByDateForm" name="searchByDateForm">
+          <div class="search-date">
+            <label for="dateToBook">Date:</label>
+            <input type="date" id="dateToBook" name="dateToBook" min="2022-04-24"required>
+            <input type ="submit" value="Search for Date">
+          </div>
+        </form>
+        <form class="search-by-type-form hidden" id="searchByTypeFilter" name="searchByTypeFilter">
+          <div class="room-filter">
+            <label for="room-type-selction">choose a room type:</label>
+            <select id="select1" name="room-type-selection" class="room-type-selection">
+              <option value="any">any</option>
+              <!-- available room type options inject here -->
+            </select>
+          </div>
+        </form>
+        <button class="clear-search-button hidden">Clear Search</button>
+      </section>
+    </div>
     <section class="available-rooms-list">
       <!-- available room options inject here -->
     </section>
   </section>
   <section class="modal">
     <section class="modal-content">
-    <span class="close">&times;</span>
-
+    <span class="close" aria-label="exit room details without booking">&times;</span>
       <section class="modal-booking-details">
         <!-- room booking details insert here -->
       </section>
-      <!-- <button class="confirm-booking-button">Book this room!</button> -->
       <p class="post-error-message"></p>
     </section>
   </section>
   <script src="bundle.js"></script>
-
 </body>
 </html>

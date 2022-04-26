@@ -1,30 +1,84 @@
 * {
-  border: solid red 2px;
+  /* border: solid red 2px; */
+  font-family: 'Arial';
+  background-color: #6495ed;
+}
+
+header {
+  font-family: 'Arial';
+  font-size: 100px;
+  background-color: white;
+}
+
+img {
+  height: 100%;
+  width: 100%
+}
+
+.welcome {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.welcome-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: white;
 }
 
 p,
-h2 {
+h1,
+h2,
+h3,
+.total-spent {
   pointer-events: none;
+  background-color: white;
+}
+
+.search-section,
+.search-date,
+.search-by-type-form,
+.room-filter,
+.modal-booking-details,
+.close,
+label,
+input,
+select {
+  background-color: white;
 }
 
 h2{
-  width: 100%;
+  width: 80%%;
   height: 30px;
-  /* padding: 20px; */
+}
+
+button {
+  cursor: pointer;
+  background-color: black;
+  color: white;
 }
 
 .dashboard {
   display: flex;
   flex-direction: column;
+  font-family: 'Montserrat' sans-serif;
 }
 
 .dashboard-container {
   display: flex;
+  justify-content: center;
 }
 
+.available-room,
 .reservation {
   height: 250px;
   width: 250px;
+  margin: 15px;
+  padding: 10px;
+  background-color: white;
+  color: black;
 }
 
 .upcoming-bookings-list,
@@ -36,6 +90,14 @@ h2{
   list-style: none;
 }
 
+.search-section {
+  padding: 10px;
+}
+.search-options {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+}
 
 .available-room {
   cursor: pointer;
@@ -58,14 +120,14 @@ h2{
 }
 
 .modal-content {
-  background-color: #FFFBE6;
+  align-content: center;
+  background-color: white;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
   height: inherit;
-  font-family: 'Montserrat', sans-serif;
-  color: #356859;
+  color: black;
 }
 
 .close {
