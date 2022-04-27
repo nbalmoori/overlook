@@ -9,12 +9,12 @@ class Customer {
       username: `customer${id}`,
       password: "overlook2021"
     };
-  }
+  };
 
 
   getUserBookings(bookingRepo) {
-    return bookingRepo.findBookingByUser(this.id)
-  }
+    return bookingRepo.findBookingByUser(this.id);
+  };
 
   getTodaysDate() {
     let today = new Date();
@@ -25,34 +25,34 @@ class Customer {
   };
 
   getCurrentBookings(bookingRepo) {
-    let current = []
+    let current = [];
     this.getUserBookings(bookingRepo).forEach(booking => {
       let bookingDate = booking.data.date;
       if (bookingDate >= this.getTodaysDate()) {
-        current.push(booking)
-      }
-    })
-    return current
-  }
+        current.push(booking);
+      };
+    });
+    return current;
+  };
 
   getPastBookings(bookingRepo) {
-    let past = []
+    let past = [];
     this.getUserBookings(bookingRepo).forEach(booking => {
       let bookingDate = booking.data.date;
       if (bookingDate < this.getTodaysDate()) {
         past.push(booking)
-      }
-    })
-    return past
-  }
+      };
+    });
+    return past;
+  };
 
   getTotalSpent(bookingRepo, roomRepo) {
     return this.getUserBookings(bookingRepo).reduce((total, booking) => {
       let bookedRoom = roomRepo.roomList.find(room => room.data.number === booking.data.roomNumber)
       total += bookedRoom.data.costPerNight
       return total
-    }, 0).toFixed(2)
-  }
+    }, 0).toFixed(2);
+  };
 };
 
 export default Customer;

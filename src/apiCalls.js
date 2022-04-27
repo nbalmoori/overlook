@@ -1,13 +1,10 @@
-import {refreshBookings, header} from './scripts.js';
-
-let postErrorMessage = document.querySelector('.post-error-message');
-
+import {refreshBookings, header, loginError, searchHeader} from './scripts.js';
 
 const getFetch = (address) => {
   return fetch(`http://localhost:3001/api/v1/${address}`)
   .then(response => response.json())
   .catch((error) => {
-    header.innerText = 'Error loading data. Please try again later.';
+    loginError.innerText = 'Error loading data. Please try again later.';
   });
 };
 
@@ -26,8 +23,8 @@ const addBooking = (newBooking) => {
   })
   .then(response => refreshBookings())
   .catch(error => {
-    postErrorMessage.innerText = 'There was an issue adding this booking. Try again!'
+    searchHeader.innerText = 'There was an issue adding this booking. Try again!'
   });
 }
 
-export { getFetch, addBooking, postErrorMessage }
+export { getFetch, addBooking }

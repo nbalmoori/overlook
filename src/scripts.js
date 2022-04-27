@@ -1,15 +1,9 @@
-// An example of how you tell webpack to use a CSS (SCSS) file
-import './css/styles.css';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
-import './images/pool-image.jpg'
-import './images/login-pool-image.jpg'
-
-
 // ----------------- IMPORTS ------------------------------------------------- //
 
-import { getFetch, addBooking, postErrorMessage } from './apiCalls.js';
+import './css/styles.css';
+import './images/pool-image.jpg';
+import './images/login-pool-image.jpg'
+import { getFetch, addBooking } from './apiCalls.js';
 import CustomerRepository from './classes/customerRepository';
 import Customer from './classes/customer';
 import RoomRepository from './classes/roomRepository';
@@ -66,23 +60,6 @@ const hideElement = (element) => {
   element.classList.add('hidden');
 };
 
-const verifyUser = () => {
-  if (
-    usernameInput.value.startsWith('customer') &&
-    0 < usernameInput.value.slice(8) < 50 &&
-    passwordInput.value === 'overlook2021'
-  ) {
-    user = customerList.customerList.find(user => user.id === parseInt(usernameInput.value.slice(8)))
-    getBookings();
-    displayTotalSpent();
-    displayUserName();
-    hideElement(loginView)
-    showElement(dashboard)
-  } else {
-    loginError.innerText = 'Incorrect username or password. Please try again!'
-  }
-}
-
 const getApiData = () => {
   Promise.all([
     getFetch('customers'),
@@ -105,12 +82,27 @@ const refreshBookings = () => {
   })
 }
 
+const verifyUser = () => {
+  if (
+    usernameInput.value.startsWith('customer') &&
+    0 < usernameInput.value.slice(8) < 50 &&
+    passwordInput.value === 'overlook2021'
+  ) {
+    user = customerList.customerList.find(user => user.id === parseInt(usernameInput.value.slice(8)))
+    getBookings();
+    displayTotalSpent();
+    displayUserName();
+    hideElement(loginView);
+    showElement(dashboard);
+  } else {
+    loginError.innerText = 'Incorrect username or password. Please try again!';
+  }
+}
+
 const createDataInstances = (data) => {
   roomList = new RoomRepository(data[1].rooms);
   bookingList = new BookingRepository(data[2].bookings);
   customerList = new CustomerRepository(data[0].customers, bookingList);
-  //UPDATE USER FUNCTIONALITY IN ITERATION 3
-  // user = customerList.customerList[25];
 }
 
 const refreshDataInstances = (data) => {
@@ -121,8 +113,8 @@ const refreshDataInstances = (data) => {
 }
 
 const getBookings = () => {
-  let current = user.getCurrentBookings(bookingList)
-  let past = user.getPastBookings(bookingList)
+  let current = user.getCurrentBookings(bookingList);
+  let past = user.getPastBookings(bookingList);
 
   upcomingBookings.innerHTML = '';
   current.forEach(booking => {
@@ -163,8 +155,8 @@ logInButton.addEventListener('click', (e) => {
   if (username.value && password.value) {
     e.preventDefault();
     verifyUser();
-  }
-})
+  };
+});
 
 bookButton.addEventListener('click', (e) => {
   hideElement(dashboard);
@@ -173,6 +165,7 @@ bookButton.addEventListener('click', (e) => {
   showElement(searchOptions);
   availableRoomsSection.innerHTML = '';
   searchHeader.innerText = `Search to Book!`;
+  searchByDateInput.setAttribute("min", `${user.getTodaysDate().split("/").join("-")}`);
 });
 
 dashboardButton.addEventListener('click', (e) => {
@@ -201,7 +194,7 @@ searchByDateForm.addEventListener('submit', (e) => {
     });
   } else {
     availableRoomsSection.innerHTML = `<h2>We are sorry - we're all booked for the options chosen! Please clear your search to visit us on a different date.</h2>`;
-  }
+  };
 
   showElement(searchByTypeForm);
   showElement(clearSearchButton);
@@ -249,7 +242,7 @@ clearSearchButton.addEventListener('click', (e) => {
   hideElement(clearSearchButton);
   availableRoomsSection.innerHTML = '';
   searchByDateInput.value = '';
-})
+});
 
 availableRoomsSection.addEventListener('click', (e) => {
   let targetId = e.target.getAttribute('id');
@@ -285,4 +278,4 @@ modalBookingDetails.addEventListener('click', (e) => {
   };
 });
 
-export {refreshBookings, header};
+export {refreshBookings, header, loginError, searchHeader};
