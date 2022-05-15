@@ -51,7 +51,7 @@ class Customer {
       let bookedRoom = roomRepo.roomList.find(room => room.data.number === booking.data.roomNumber)
       total += bookedRoom.data.costPerNight
       return total
-    }, 0).toFixed(2);
+    }, 0).toLocaleString();
   };
 };
 
