@@ -4,7 +4,7 @@ import Booking from '../src/classes/booking'
 import RoomRepository from '../src/classes/roomRepository'
 import { bookings, rooms } from './test-data'
 
-describe('Room', function() {
+describe('Booking', function() {
 
   let booking1, booking2, roomRepository;
 
@@ -48,5 +48,10 @@ describe('Room', function() {
         costPerNight: 358.4
       }
     });
+  });
+
+  it('should be able to determine whether a room has a bidet', function() {
+    expect(booking1.getBidetInfo(roomRepository)).to.equal("This room has a bidet!");
+    expect(booking2.getBidetInfo(roomRepository)).to.equal();
   });
 });
