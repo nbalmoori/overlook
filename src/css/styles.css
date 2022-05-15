@@ -1,8 +1,7 @@
 /* --------------- OVERALL --------------- */
 
 * {
-  font-family: 'Arial';
-  background-color: #6495ed;
+  font-family: 'Montserrat', sans-serif;
 }
 
 html,
@@ -17,8 +16,24 @@ body {
 /* --------------- LOGIN --------------- */
 
 img {
-  height: 100%;
-  width: 110%;
+  height: 100vh;
+  width: 100vw;
+}
+
+.login-header {
+  position: absolute;
+  margin-right: 40%;
+  margin-bottom: 40%;
+  font-size: 8em;
+  font-weight: bold;
+}
+
+.login-tagline {
+  position: absolute;
+  margin-right: 35%;
+  margin-bottom: 20%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2em;
 }
 
 .login {
@@ -32,35 +47,42 @@ img {
 
 .login-box {
   background: white;
+  opacity: 0.6;
   color: black;
-  height: 50%;
+  height: 30%;
   position: absolute;
   width: 30%;
+  margin-left: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-details {
   background: white;
   text-align: center;
-  padding-top: 15%;
   flex-direction: column;
   font-size: 15px;
-  margin-bottom: 5px;
 }
 
 .user-login-inputs{
   background: white;
+  opacity: 1;
+}
+.login-button {
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }
 
 /* --------------- DASHBOARD --------------- */
 
 header {
-  background-color: white;
-  font-family: 'Arial';
   font-size: 100px;
 }
 
 .welcome {
-  background-color: white;
   display: flex;
   justify-content: space-between;
 }
@@ -69,7 +91,6 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  background-color: white;
 }
 
 p,
@@ -77,20 +98,7 @@ h1,
 h2,
 h3,
 .total-spent {
-  background-color: white;
   pointer-events: none;
-}
-
-.search-section,
-.search-date,
-.search-by-type-form,
-.room-filter,
-.modal-booking-details,
-.close,
-label,
-input,
-select {
-  background-color: white;
 }
 
 h2{
@@ -98,15 +106,14 @@ h2{
 }
 
 button {
-  color: white;
   cursor: pointer;
+  color: white;
   background-color: black;
 }
 
 .dashboard {
   display: flex;
   flex-direction: column;
-  font-family: 'Montserrat' sans-serif;
 }
 
 .dashboard-container {
