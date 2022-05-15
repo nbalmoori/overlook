@@ -94,6 +94,6 @@ describe('Customer', function() {
 
   it('should be able to return the total cost of bookings for a customer', () => {
     expect(customer1.getTotalSpent(bookingRepository1, roomRepository1)).to.deep.equal('920.58');
-    expect(customer2.getTotalSpent(bookingRepository1, roomRepository1)).to.deep.equal('0.00');
+    expect(customer2.getTotalSpent(bookingRepository1, roomRepository1)).to.deep.equal('0');
   });
 });
