@@ -9,10 +9,11 @@ class Booking {
 
   getBidetInfo (roomRepo) {
     if (this.getRoomInfo(roomRepo).data.bidet) {
-      return "This room has a bidet!"
+      return "Extra Amenity: bidet"
+    } else {
+      return "";
     }
   }
-
 };
 
 export default Booking;

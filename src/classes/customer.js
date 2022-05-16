@@ -1,6 +1,5 @@
 import BookingRepository from './bookingRepository'
 
-
 class Customer {
   constructor(name, id, bookingRepo) {
     this.name = name;
@@ -10,7 +9,6 @@ class Customer {
       password: "overlook2021"
     };
   };
-
 
   getUserBookings(bookingRepo) {
     return bookingRepo.findBookingByUser(this.id);

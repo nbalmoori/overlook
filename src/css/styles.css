@@ -42,7 +42,6 @@ img {
   position: absolute;
   margin-right: 35%;
   margin-bottom: 20%;
-  font-family: 'Roboto', sans-serif;
   font-size: 2em;
 }
 
@@ -113,7 +112,6 @@ header {
 .welcome-header {
   font-size: 2.5em;
 }
-
 
 .reservation-header {
   font-size: 2em;
