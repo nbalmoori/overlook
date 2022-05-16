@@ -9,13 +9,13 @@
   <title>Overlook Hotel: Book Your Stay Today!</title>
 </head>
 <body>
-  <section class="login">
+  <section class="login hidden">
     <img src="./images/login-pool-image.jpg" alt="pool overlooking a sunset">
     <h1 class="login-header">OVERLOOK</h1>
     <h2 class="login-tagline">NOT A HOTEL — <i>AN ESCAPE</i></h2>
     <div class="login-box">
       <form class="login-details" id="loginDetails">
-        <h3>SIGN IN</h3>
+        <h3></h3>SIGN IN</h3>
         <div class="user-login-inputs">
           <label for="username">username:</label><br>
           <input type="username" id="username" name="username" required><br><br>
@@ -27,31 +27,30 @@
       </form>
     </div>
   </section>
-  <section class="dashboard hidden">
+  <section class="dashboard">
     <header>OVERLOOK</header>
-    <div class="welcome">
+    <section class="welcome-info">
       <h1 class="welcome-header">Welcome, username!</h1>
-      <div class="welcome-details">
-        <section class="total-spent">
-          <!-- total spent injects here -->
-        </section>
-        <button class="book-button">Make New Reservation</button>
-      </div>
-    </div>
-    <div class="reservations-container">
+      <p>Thank you for being a loyal customer of the Overlook Hotel.</p>
+      <p class="total-spent">
+        <!-- total spent injects here -->
+      </p>
+      <button class="book-button">Make New Reservation</button>
+    </section>
+    <section class="reservations-container">
       <section class="upcoming-bookings">
-        <h2>Your Upcoming Bookings: </h2>
+        <h2 class="reservation-header">Your Upcoming Bookings: </h2>
         <ul class="upcoming-bookings-list">
           <!-- upcoming bookings inject here -->
         </ul>
       </section>
       <section class="past-bookings">
-        <h2>Your Past Bookings: </h2>
+        <h2 class="reservation-header">Your Past Bookings: </h2>
         <ul class="past-bookings-list">
           <!-- past bookings inject here -->
         </ul>
       </section>
-    </div>
+    </section>
   </section>
   <section class="booking-view hidden">
     <header>OVERLOOK</header>
