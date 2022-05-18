@@ -3,7 +3,7 @@
 ## Overview
 OVERLOOK is a frontend application that allows users to login to a hotel website and view their past and upcoming bookings.  The user can make a new reservation by searching available rooms by date and room type.
 
-This application was the final solo project built by Nikki Balmoori during Mod 2 of Turing School of Software & Design. The main objective was to use Object Oriented Programming to drive the design of the application and the code, work with an API to send and receive data, and utilize Test Driven Development.  
+This application was the final solo project built by Nikki Balmoori during Mod 2 of Turing School of Software & Design. The project spec can be found [here](https://frontend.turing.edu/projects/overlook.html).  The main objective was to use Object Oriented Programming to drive the design of the application and the code, work with an API to send and receive data, and utilize Test Driven Development.  
 
 ## Installation
 
@@ -39,7 +39,7 @@ This application was the final solo project built by Nikki Balmoori during Mod 2
 - A "manager" class that can: 
   - login and see hotel information such ass rooms available, revenue, and percentage of rooms occupied for today
   - search for any user by name, view their info, and add or delete a user's room bookings
-- Enhance styling of the user dashboard
+- Enhance styling of the user dashboard by adding pictures of rooms
 - Increase accessibility for users that utilize screen-readers or cannot use a mouse
 
 ## Technologies Used
@@ -53,4 +53,5 @@ This application was the final solo project built by Nikki Balmoori during Mod 2
   - building processes with <b>webpack</b>
   - implementing <b>fetch API</b> and <b>post API</b> to access remote data
   - <b>Test Driven Development</b> by writing tests and classes before implementing code related to the DOM
+  - learning about accessibility tools, such as lighthouse audits (scored 100%!) and screen reading technology
 - As we progress through the Turing program, the project expectations become less defined. This project allowed me to create Class objects/methods and user functionaity as I saw fit. Having flexibility is great, but can also cause decision fatigue.
