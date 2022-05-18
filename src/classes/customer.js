@@ -25,7 +25,7 @@ class Customer {
   getCurrentBookings(bookingRepo) {
     let current = [];
     this.getUserBookings(bookingRepo).forEach(booking => {
-      let bookingDate = booking.data.date;
+      let bookingDate = booking.date;
       if (bookingDate >= this.getTodaysDate()) {
         current.push(booking);
       };
@@ -36,7 +36,7 @@ class Customer {
   getPastBookings(bookingRepo) {
     let past = [];
     this.getUserBookings(bookingRepo).forEach(booking => {
-      let bookingDate = booking.data.date;
+      let bookingDate = booking.date;
       if (bookingDate < this.getTodaysDate()) {
         past.push(booking)
       };
@@ -46,10 +46,13 @@ class Customer {
 
   getTotalSpent(bookingRepo, roomRepo) {
     return this.getUserBookings(bookingRepo).reduce((total, booking) => {
-      let bookedRoom = roomRepo.roomList.find(room => room.data.number === booking.data.roomNumber)
-      total += bookedRoom.data.costPerNight
+      let bookedRoom = roomRepo.roomList.find(room => room.number === booking.roomNumber)
+      total += bookedRoom.costPerNight
       return total
-    }, 0).toLocaleString();
+    }, 0).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    });
   };
 };
 
