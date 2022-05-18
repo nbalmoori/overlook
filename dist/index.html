@@ -4,50 +4,53 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">   -->
   <title>Overlook Hotel: Book Your Stay Today!</title>
 </head>
 <body>
   <section class="login">
     <img src="./images/login-pool-image.jpg" alt="pool overlooking a sunset">
+    <h1 class="login-header">OVERLOOK</h1>
+    <h2 class="login-tagline">NOT A HOTEL — <i>AN ESCAPE</i></h2>
     <div class="login-box">
       <form class="login-details" id="loginDetails">
-        <h2>OVERLOOK HOTEL</h2>
+        <h3>SIGN IN</h3>
         <div class="user-login-inputs">
-          <label for="username">Username:</label><br>
+          <label for="username">username:</label><br>
           <input type="username" id="username" name="username" required><br><br>
-          <label for="password">Password:</label><br>
+          <label for="password">password:</label><br>
           <input type="password" id="password" name="password" required>
         </div>
         <p class="login-error" class="login-error" id="loginError"></p>
-        <button class="login-button" id="loginBtn">Enter Site</button>
+        <button class="login-button" id="loginBtn">ENTER SITE</button>
       </form>
     </div>
   </section>
   <section class="dashboard hidden">
     <header>OVERLOOK</header>
-    <div class="welcome">
+    <section class="welcome-info">
       <h1 class="welcome-header">Welcome, username!</h1>
-      <div class="welcome-details">
-        <section class="total-spent">
-          <!-- total spent injects here -->
-        </section>
-        <button class="book-button">Make New Reservation</button>
-      </div>
-    </div>
-    <div class="reservations-container">
+      <p>Thank you for being a loyal customer of the Overlook Hotel.</p>
+      <p class="total-spent">
+        <!-- total spent injects here -->
+      </p>
+      <button class="book-button">Make New Reservation</button>
+    </section>
+    <section class="reservations-container">
       <section class="upcoming-bookings">
-        <h2>Your Upcoming Bookings: </h2>
+        <h2 class="reservation-header">Your Upcoming Bookings: </h2>
         <ul class="upcoming-bookings-list">
           <!-- upcoming bookings inject here -->
         </ul>
       </section>
       <section class="past-bookings">
-        <h2>Your Past Bookings: </h2>
+        <h2 class="reservation-header">Your Past Bookings: </h2>
         <ul class="past-bookings-list">
           <!-- past bookings inject here -->
         </ul>
       </section>
-    </div>
+    </section>
   </section>
   <section class="booking-view hidden">
     <header>OVERLOOK</header>
@@ -64,7 +67,7 @@
         </form>
         <form class="search-by-type-form hidden" id="searchByTypeFilter" name="searchByTypeFilter">
           <div class="room-filter">
-            <label for="room-type-selction">choose a room type:</label>
+            <label for="room-type-selction">Room Type:</label>
             <select id="select1" name="room-type-selection" class="room-type-selection">
               <option value="any">any</option>
               <!-- available room type options inject here -->
@@ -80,7 +83,8 @@
   </section>
   <section class="modal">
     <section class="modal-content">
-    <span class="close" aria-label="exit room details without booking">&times;</span>
+      <span class="close" aria-label="exit room details without booking">&times;</span>
+      <h2>CONFIRM BOOKING</h2>
       <section class="modal-booking-details">
         <!-- room booking details insert here -->
       </section>

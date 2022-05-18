@@ -1,8 +1,7 @@
 /* --------------- OVERALL --------------- */
 
 * {
-  font-family: 'Arial';
-  background-color: #6495ed;
+  font-family: 'Montserrat', sans-serif;
 }
 
 html,
@@ -14,170 +13,216 @@ body {
   display: none!important;
 }
 
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  color: white;
+  background-color: black;
+}
+
 /* --------------- LOGIN --------------- */
 
 img {
-  height: 100%;
-  width: 110%;
+  height: 100vh;
+  width: 100vw;
+}
+
+.login-header {
+  position: absolute;
+  margin-right: 40%;
+  margin-bottom: 40%;
+  font-size: 8em;
+  font-weight: bold;
+}
+
+.login-tagline {
+  position: absolute;
+  margin-right: 35%;
+  margin-bottom: 20%;
+  font-size: 2em;
 }
 
 .login {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100%;
   width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .login-box {
-  background: white;
-  color: black;
-  height: 50%;
   position: absolute;
+  height: 30%;
   width: 30%;
+  margin-left: 40%;
+  background: white;
+  opacity: 0.6;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-details {
   background: white;
-  text-align: center;
-  padding-top: 15%;
-  flex-direction: column;
   font-size: 15px;
-  margin-bottom: 5px;
+  flex-direction: column;
+  text-align: center;
 }
 
 .user-login-inputs{
   background: white;
+  opacity: 1;
+}
+
+.login-button {
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }
 
 /* --------------- DASHBOARD --------------- */
 
-header {
-  background-color: white;
-  font-family: 'Arial';
-  font-size: 100px;
-}
-
-.welcome {
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-}
-
-.welcome-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  background-color: white;
-}
-
-p,
-h1,
-h2,
-h3,
-.total-spent {
-  background-color: white;
-  pointer-events: none;
-}
-
-.search-section,
-.search-date,
-.search-by-type-form,
-.room-filter,
-.modal-booking-details,
-.close,
-label,
-input,
-select {
-  background-color: white;
-}
-
-h2{
-  height: 30px;
-}
-
-button {
-  color: white;
-  cursor: pointer;
-  background-color: black;
-}
-
 .dashboard {
-  display: flex;
-  flex-direction: column;
-  font-family: 'Montserrat' sans-serif;
+  background-image: url(../images/pool-image.jpg);
+  background-size: cover;
+  background-repeat: repeat-y;
+  width: 100%;
 }
 
-.dashboard-container {
-  display: flex;
-  justify-content: center;
+header {
+  font-size: 8em;
+  font-weight: bold;
+  padding: 20px;
 }
 
-.available-room,
-.reservation {
-  height: 250px;
+.welcome-info {
+  width: 40vw;
+  margin-left: 55px;
   background-color: white;
-  color: black;
+  opacity: .7;
+  padding: 2%
+  border: 2px solid black;
+}
+
+.welcome-header {
+  font-size: 2.5em;
+}
+
+.reservation-header {
+  font-size: 2em;
   margin: 15px;
-  padding: 10px;
-  width: 250px;
 }
 
 .upcoming-bookings-list,
-.past-bookings-list,
-.available-rooms-list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  list-style: none;
+.past-bookings-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.upcoming-reservation,
+.past-reservation {
+  height: 200px;
+  width: 250px;
+  background-color: white;
+  opacity: .7;
+  color: black;
+  margin: 15px;
+  padding: 15px;
+  border: 2px solid black;
+}
+
+.reservation-title {
+  font-weight: 500;
 }
 
 /* --------------- SEARCH --------------- */
 
-
-.search-section {
-  padding: 10px;
+.booking-view {
+  background-image: url(../images/pool-image.jpg);
+  background-size: 100%;
+  background-repeat: repeat-y;
+  height: 2300px;
 }
 
-.search-options {
-  display: flex;
+.search-section {
+  width: 40vw;
+  margin-left: 55px;
   background-color: white;
-  justify-content: space-between;
+  opacity: .8;
+  padding: 2%;
+  border: 2px solid black;
+}
+
+.search-header {
+  font-size: 2.5em;
+}
+
+.search-date,
+.room-filter {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+}
+
+.available-rooms-header {
+  font-size: 2em;
+  margin: 15px;
 }
 
 .available-room {
+  height: 200px;
+  width: 200px;
+  background-color: white;
+  opacity: .7;
+  color: black;
+  margin: 15px;
+  padding: 10px;
+  z-index: 10;
   cursor: pointer;
 }
 
+.available-room:hover {
+  transform: scale(1.1);
+}
+
 .modal {
+  position: fixed;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
   display: none;
   height: 100%;
+  width: 100%;
   left: 0;
+  top: 0;
   overflow: auto;
   padding-top: 100px;
-  position: fixed;
-  top: 0;
-  width: 100%;
   z-index: 1;
 }
 
 .modal-content {
-  align-content: center;
+  width: 80%;
   background-color: white;
-  border: 1px solid #888;
   color: black;
-  height: inherit;
   margin: auto;
   padding: 20px;
-  width: 80%;
+  border: 1px solid #888;
+}
+
+.modal-booking-details {
+  padding: 5%
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .close {
-  color: #aaaaaa;
   float: right;
+  color: #aaaaaa;
   font-size: 50px;
   font-weight: bold;
   padding: 10px;
@@ -188,4 +233,9 @@ button {
   color: #000;
   cursor: pointer;
   text-decoration: none;
+}
+
+p,
+h3 {
+  pointer-events: none;
 }

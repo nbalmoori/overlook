@@ -1,11 +1,10 @@
 // ----------------- IMPORTS ------------------------------------------------- //
 
 import './css/styles.css';
-import './images/pool-image.jpg';
-import './images/login-pool-image.jpg'
+import './images/login-pool-image.jpg';
+import dayjs from 'dayjs';
 import { getFetch, addBooking } from './apiCalls.js';
 import CustomerRepository from './classes/customerRepository';
-import Customer from './classes/customer';
 import RoomRepository from './classes/roomRepository';
 import BookingRepository from './classes/bookingRepository';
 
@@ -14,7 +13,6 @@ import BookingRepository from './classes/bookingRepository';
 // --------LOGIN--------------- //
 let loginView = document.querySelector('.login');
 let logInButton = document.querySelector('.login-button');
-let loginForm = document.querySelector('.login-details');
 let usernameInput = document.querySelector('#username');
 let passwordInput = document.querySelector('#password');
 let loginError = document.querySelector('.login-error');
@@ -35,16 +33,15 @@ let searchByDateForm = document.querySelector('.search-by-date-form');
 let searchByDateInput = document.querySelector('#dateToBook');
 let searchByTypeForm = document.querySelector('.search-by-type-form');
 let searchFilterByTypeSelection = document.querySelector('.room-type-selection');
-let searchTypeDropdown = document.querySelector('.type-dropdown-content');
 let clearSearchButton = document.querySelector('.clear-search-button');
 let availableRoomsSection = document.querySelector('.available-rooms-list');
 let modal = document.querySelector('.modal');
-let modalContent = document.querySelector('.modal-content');
 let modalBookingDetails = document.querySelector('.modal-booking-details');
 let closeModal = document.querySelector('.close');
 let dashboardButton = document.querySelector('.dashboard-button');
 
 // ----------------- GLOBAL VARIABLES ---------------------------------------- //
+
 let user;
 let customerList;
 let roomList;
@@ -80,7 +77,7 @@ const refreshBookings = () => {
     getBookings();
     displayTotalSpent();
   })
-}
+};
 
 const verifyUser = () => {
   if (
@@ -88,7 +85,7 @@ const verifyUser = () => {
     0 < usernameInput.value.slice(8) < 50 &&
     passwordInput.value === 'overlook2021'
   ) {
-    user = customerList.customerList.find(user => user.id === parseInt(usernameInput.value.slice(8)))
+    user = customerList.customerList.find(user => user.id === parseInt(usernameInput.value.slice(8)));
     getBookings();
     displayTotalSpent();
     displayUserName();
@@ -97,20 +94,20 @@ const verifyUser = () => {
   } else {
     loginError.innerText = 'Incorrect username or password. Please try again!';
   }
-}
+};
 
 const createDataInstances = (data) => {
   roomList = new RoomRepository(data[1].rooms);
   bookingList = new BookingRepository(data[2].bookings);
   customerList = new CustomerRepository(data[0].customers, bookingList);
-}
+};
 
 const refreshDataInstances = (data) => {
   roomList = new RoomRepository(data[1].rooms);
   bookingList = new BookingRepository(data[2].bookings);
   customerList = new CustomerRepository(data[0].customers, bookingList);
   user = customerList.customerList.find(customer => user.id === customer.id);
-}
+};
 
 const getBookings = () => {
   let current = user.getCurrentBookings(bookingList);
@@ -119,22 +116,28 @@ const getBookings = () => {
   upcomingBookings.innerHTML = '';
   current.forEach(booking => {
     upcomingBookings.innerHTML += `
-    <li class="reservation">
-      <h3>${booking.getRoomInfo(roomList).data.roomType} on ${booking.data.date}</h3>
-      <p>Bed: ${booking.getRoomInfo(roomList).data.numBeds} x ${booking.getRoomInfo(roomList).data.bedSize}</p>
-      <p>Cost: $${booking.getRoomInfo(roomList).data.costPerNight}</p>
-      <p>Bidet: ${booking.getRoomInfo(roomList).data.bidet}</p>
+    <li class="upcoming-reservation">
+      <h3 class="reservation-title">Room ${booking.getRoomInfo(roomList).number} on ${dayjs(booking.date).format('MM/DD/YYYY')}</h3>
+      <ul>
+        <li>Room Type: ${booking.getRoomInfo(roomList).roomType}</li>
+        <li>Bed: ${booking.getRoomInfo(roomList).numBeds} x ${booking.getRoomInfo(roomList).bedSize}</li>
+        <li>Cost: $${booking.getRoomInfo(roomList).costPerNight.toFixed(2)}</li>
+        <li>${booking.getBidetInfo(roomList)}</li>
+      </ul>
     </li>`;
   });
 
   pastBookings.innerHTML = '';
   past.forEach(booking => {
     pastBookings.innerHTML += `
-    <li class="reservation">
-      <h3>${booking.getRoomInfo(roomList).data.roomType} on ${booking.data.date}</h3>
-      <p>Bed: ${booking.getRoomInfo(roomList).data.numBeds} x ${booking.getRoomInfo(roomList).data.bedSize}</p>
-      <p>Cost: $${booking.getRoomInfo(roomList).data.costPerNight}</p>
-      <p>Bidet: ${booking.getRoomInfo(roomList).data.bidet}</p>
+    <li class="past-reservation">
+      <h3 class="reservation-title">Room ${booking.getRoomInfo(roomList).number} on ${dayjs(booking.date).format('MM/DD/YYYY')}</h3>
+       <ul>
+        <li>Room Type: ${booking.getRoomInfo(roomList).roomType}</li>
+        <li>Bed: ${booking.getRoomInfo(roomList).numBeds} x ${booking.getRoomInfo(roomList).bedSize}</li>
+        <li>Cost: $${booking.getRoomInfo(roomList).costPerNight.toFixed(2)}</li>
+        <li>${booking.getBidetInfo(roomList)}</li>
+      </ul>
     </li>`;
   });
 };
@@ -180,16 +183,17 @@ searchByDateForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   let searchDate = formData.get('dateToBook').split("-").join("/");
-  let bookedRoomsByDate = bookingList.bookingList.filter(booking => booking.data.date === searchDate).map(booking => booking.data.roomNumber);
-  let availableRooms = roomList.roomList.filter(room => (!bookedRoomsByDate.includes(room.data.number)));
-  availableRoomsSection.innerHTML = '';
+  let bookedRoomsByDate = bookingList.bookingList.filter(booking => booking.date === searchDate).map(booking => booking.roomNumber);
+  let availableRooms = roomList.roomList.filter(room => (!bookedRoomsByDate.includes(room.number)));
+  availableRoomsSection.innerHTML = ' <h2 class="available-rooms-header">Available Rooms:</h2>';
   if (availableRooms.length > 0) {
     availableRooms.forEach(room => {
       availableRoomsSection.innerHTML += `
-        <button class="available-room" id='${room.data.number}'>
-          <h3>available ${room.data.roomType}</h3>
-          <p>Bed: ${room.data.numBeds} x ${room.data.bedSize}</p>
-          <p>Cost: $${room.data.costPerNight}</p>
+        <button class="available-room" id='${room.number}'>
+          <h3>Room ${room.number}</h3>
+          <p>available ${room.roomType}</p>
+          <p>Bed: ${room.numBeds} x ${room.bedSize}</p>
+          <p>Cost: $${room.costPerNight.toFixed(2)}</p>
         </button>`;
     });
   } else {
@@ -201,8 +205,8 @@ searchByDateForm.addEventListener('submit', (e) => {
 
   let roomTypes = [];
   availableRooms.forEach(room => {
-    if (!roomTypes.includes(room.data.roomType)) {
-      roomTypes.push(room.data.roomType);
+    if (!roomTypes.includes(room.roomType)) {
+      roomTypes.push(room.roomType);
     };
   });
   searchFilterByTypeSelection.innerHTML = '<option value="any">any</option>';
@@ -210,29 +214,32 @@ searchByDateForm.addEventListener('submit', (e) => {
 });
 
 searchFilterByTypeSelection.addEventListener('change', (e) => {
-  let bookedRoomsByDate = bookingList.bookingList.filter(booking => booking.data.date === searchByDateInput.value.split("-").join("/")).map(booking => booking.data.roomNumber);
-  let availableRoomsByDate = roomList.roomList.filter(room => (!bookedRoomsByDate.includes(room.data.number)));
-  let availableRoomsByFilter = availableRoomsByDate.filter(room => room.data.roomType === searchFilterByTypeSelection.value);
+  let bookedRoomsByDate = bookingList.bookingList.filter(booking => booking.date === searchByDateInput.value.split("-").join("/")).map(booking => booking.roomNumber);
+  let availableRoomsByDate = roomList.roomList.filter(room => (!bookedRoomsByDate.includes(room.number)));
+  let availableRoomsByFilter = availableRoomsByDate.filter(room => room.roomType === searchFilterByTypeSelection.value);
 
   if (searchFilterByTypeSelection.value === "any") {
-    availableRoomsSection.innerHTML = '';
+    availableRoomsSection.innerHTML = ' <h2 class="available-rooms-header">Available Rooms:</h2>';
     availableRoomsByDate.forEach(room => {
+      
       availableRoomsSection.innerHTML += `
-        <button class="available-room" id='${room.data.number}'>
-          <h3>available ${room.data.roomType}</h3>
-          <p>Bed: ${room.data.numBeds} x ${room.data.bedSize}</p>
-          <p>Cost: $${room.data.costPerNight}</p>
-        </button>`;
+        <button class="available-room" id='${room.number}'>
+          <h3>Room ${room.number}</h3>
+          <p>available ${room.roomType}</p>
+          <p>Bed: ${room.numBeds} x ${room.bedSize}</p>
+          <p>Cost: $${room.costPerNight.toFixed(2)}</p>
+       </button>`;
     });
   } else {
-    availableRoomsSection.innerHTML = '';
+    availableRoomsSection.innerHTML = ' <h2 class="available-rooms-header">Available Rooms:</h2>';
     availableRoomsByFilter.forEach(room => {
       availableRoomsSection.innerHTML += `
-        <button class="available-room" id='${room.data.number}'>
-          <h3>available ${room.data.roomType}</h3>
-          <p>Bed: ${room.data.numBeds} x ${room.data.bedSize}</p>
-          <p>Cost: $${room.data.costPerNight}</p>
-        </button>`;
+       <button class="available-room" id='${room.number}'>
+        <h3>Room ${room.number}</h3>
+        <p>available ${room.roomType}</p>
+        <p>Bed: ${room.numBeds} x ${room.bedSize}</p>
+        <p>Cost: $${room.costPerNight.toFixed(2)}</p>
+       </button>`;
     });
   };
 });
@@ -245,17 +252,20 @@ clearSearchButton.addEventListener('click', (e) => {
 });
 
 availableRoomsSection.addEventListener('click', (e) => {
-  let targetId = e.target.getAttribute('id');
-  let selectedRoom = roomList.getRoomById(parseInt(targetId));
-  modal.style.display = 'block';
-  modalBookingDetails.innerHTML = `
-    <h2>CONFIRM BOOKING</h2>
-    <p>Date: ${searchByDateInput.value.split("-").join("/")}</p>
-    <p>Type: ${selectedRoom.data.roomType}</p>
-    <p>Bed: ${selectedRoom.data.numBeds} ${selectedRoom.data.bedSize}</p>
-    <p>Cost: $${selectedRoom.data.costPerNight}</p>
-    <p>Bidet: ${selectedRoom.data.bidet}</p>
-    <button class="confirm-booking-button" id="${targetId}">Book this room!</button>`;
+  if (event.target.className === 'available-room') {
+    let targetId = e.target.getAttribute('id');
+    console.log(targetId)
+    let selectedRoom = roomList.getRoomById(parseInt(targetId));
+    modal.style.display = 'block';
+    modalBookingDetails.innerHTML = `
+      <h3>ROOM ${selectedRoom.number}</h3>
+      <p>Date: ${dayjs(searchByDateInput.value).format('MM/DD/YYYY')}</p>
+      <p>Type: ${selectedRoom.roomType}</p>
+      <p>Bed: ${selectedRoom.numBeds} ${selectedRoom.bedSize}</p>
+      <p>Cost: $${selectedRoom.costPerNight.toFixed(2)}</p>
+      <p>Bidet: ${selectedRoom.bidet}</p>
+      <button class="confirm-booking-button" id="${targetId} tabindex="0">Book this room!</button>`;
+  };
 });
 
 closeModal.addEventListener('click', (e) => {
