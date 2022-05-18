@@ -77,7 +77,7 @@ const refreshBookings = () => {
     getBookings();
     displayTotalSpent();
   })
-}
+};
 
 const verifyUser = () => {
   if (
@@ -85,7 +85,7 @@ const verifyUser = () => {
     0 < usernameInput.value.slice(8) < 50 &&
     passwordInput.value === 'overlook2021'
   ) {
-    user = customerList.customerList.find(user => user.id === parseInt(usernameInput.value.slice(8)))
+    user = customerList.customerList.find(user => user.id === parseInt(usernameInput.value.slice(8)));
     getBookings();
     displayTotalSpent();
     displayUserName();
@@ -94,24 +94,23 @@ const verifyUser = () => {
   } else {
     loginError.innerText = 'Incorrect username or password. Please try again!';
   }
-}
+};
 
 const createDataInstances = (data) => {
   roomList = new RoomRepository(data[1].rooms);
   bookingList = new BookingRepository(data[2].bookings);
   customerList = new CustomerRepository(data[0].customers, bookingList);
-}
+};
 
 const refreshDataInstances = (data) => {
   roomList = new RoomRepository(data[1].rooms);
   bookingList = new BookingRepository(data[2].bookings);
   customerList = new CustomerRepository(data[0].customers, bookingList);
   user = customerList.customerList.find(customer => user.id === customer.id);
-  
-}
+};
 
 const getBookings = () => {
-  let current = user.getCurrentBookings(bookingList).sort((a, b) => a.date - b.date);
+  let current = user.getCurrentBookings(bookingList);
   let past = user.getPastBookings(bookingList);
 
   upcomingBookings.innerHTML = '';
@@ -265,7 +264,7 @@ availableRoomsSection.addEventListener('click', (e) => {
       <p>Bed: ${selectedRoom.numBeds} ${selectedRoom.bedSize}</p>
       <p>Cost: $${selectedRoom.costPerNight.toFixed(2)}</p>
       <p>Bidet: ${selectedRoom.bidet}</p>
-      <button class="confirm-booking-button" id="${targetId}">Book this room!</button>`;
+      <button class="confirm-booking-button" id="${targetId} tabindex="0">Book this room!</button>`;
   };
 });
 
