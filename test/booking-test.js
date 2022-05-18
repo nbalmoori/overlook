@@ -23,35 +23,30 @@ describe('Booking', function() {
   });
 
   it('should be able to take bookings data', function() {
-    expect(booking1.data).to.deep.equal({
-      id: '5fwrgu4i7k55hl6sz',
-      userID: 4,
-      date: '2022/04/22',
-      roomNumber: 1
+      expect(booking1.id).to.equal('5fwrgu4i7k55hl6sz');
+      expect(booking1.userID).to.equal(4);
+      expect(booking1.date).to.equal('2022/04/22');
+      expect(booking1.roomNumber).to.equal(1);
+
+      expect(booking2.id).to.equal('5fwrgu4i7k55hl6t5');
+      expect(booking2.userID).to.equal(3);
+      expect(booking2.date).to.equal('2022/01/24');
+      expect(booking2.roomNumber).to.equal(2);
     });
-    expect(booking2.data).to.deep.equal({
-      id: '5fwrgu4i7k55hl6t5',
-      userID: 3,
-      date: '2022/01/24',
-      roomNumber: 2
-    });
-  });
 
   it('should be able to get room info', function() {
     expect(booking1.getRoomInfo(roomRepository)).to.deep.equal({
-      data: {
         number: 1,
         roomType: 'residential suite',
         bidet: true,
         bedSize: 'queen',
         numBeds: 1,
         costPerNight: 358.4
-      }
     });
   });
 
   it('should be able to determine whether a room has a bidet', function() {
-    expect(booking1.getBidetInfo(roomRepository)).to.equal("This room has a bidet!");
-    expect(booking2.getBidetInfo(roomRepository)).to.equal();
+    expect(booking1.getBidetInfo(roomRepository)).to.equal("Extra Amenity: bidet");
+    expect(booking2.getBidetInfo(roomRepository)).to.equal("");
   });
 });

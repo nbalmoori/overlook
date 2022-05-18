@@ -20,10 +20,6 @@ describe('CustomerRepository', function() {
     expect(customerRepository).to.be.an.instanceOf(CustomerRepository);
   });
 
-  it('should be able to take in a customer data set', () => {
-    expect(customerRepository.rawData).to.equal(customers);
-  });
-
   it('should hold instances of Customer class', () => {
     expect(customerRepository.customerList[0]).to.be.an.instanceOf(Customer);
   });

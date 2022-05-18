@@ -5,10 +5,6 @@ import Customer from '../src/classes/customer'
 import BookingRepository from '../src/classes/bookingRepository';
 import Booking from '../src/classes/booking';
 import RoomRepository from '../src/classes/roomRepository';
-import Room from '../src/classes/room';
-
-
-
 
 describe('Customer', function() {
 
@@ -44,20 +40,16 @@ describe('Customer', function() {
   it('should be able to retrieve the bookings of a customer', () => {
     expect(customer1.getUserBookings(bookingRepository1)).to.deep.equal([
       {
-        data: {
-          id: '5fwrgu4i7k55hl6t6',
-          userID: 1,
-          date: '2022/01/10',
-          roomNumber: 3
-        }
+        id: '5fwrgu4i7k55hl6t6',
+        userID: 1,
+        date: '2022/01/10',
+        roomNumber: 3
       },
       {
-        data: {
-          id: '5fwrgu4i7k55hl6t7',
-          userID: 1,
-          date: '2022/05/16',
-          roomNumber: 4
-        }
+        id: '5fwrgu4i7k55hl6t7',
+        userID: 1,
+        date: '2023/05/16',
+        roomNumber: 4
       }
     ]);
     expect(customer2.getUserBookings(bookingRepository1)).to.deep.equal([]);
@@ -66,12 +58,10 @@ describe('Customer', function() {
   it('should be able to retrieve the current bookings of a customer', () => {
     expect(customer1.getCurrentBookings(bookingRepository1)).to.deep.equal([
       {
-        data: {
-          id: '5fwrgu4i7k55hl6t7',
-          userID: 1,
-          date: '2022/05/16',
-          roomNumber: 4
-        }
+        id: '5fwrgu4i7k55hl6t7',
+        userID: 1,
+        date: '2023/05/16',
+        roomNumber: 4
       }
     ]);
     expect(customer2.getCurrentBookings(bookingRepository1)).to.deep.equal([]);
@@ -80,12 +70,10 @@ describe('Customer', function() {
   it('should be able to retrieve the past bookings of a customer', () => {
     expect(customer1.getPastBookings(bookingRepository1)).to.deep.equal([
       {
-        data: {
-          id: '5fwrgu4i7k55hl6t6',
-          userID: 1,
-          date: '2022/01/10',
-          roomNumber: 3
-        }
+        id: '5fwrgu4i7k55hl6t6',
+        userID: 1,
+        date: '2022/01/10',
+        roomNumber: 3
       }
     ]);
     expect(customer2.getPastBookings(bookingRepository1)).to.deep.equal([]);
@@ -93,7 +81,7 @@ describe('Customer', function() {
 
 
   it('should be able to return the total cost of bookings for a customer', () => {
-    expect(customer1.getTotalSpent(bookingRepository1, roomRepository1)).to.deep.equal('920.58');
-    expect(customer2.getTotalSpent(bookingRepository1, roomRepository1)).to.deep.equal('0');
+    expect(customer1.getTotalSpent(bookingRepository1, roomRepository1)).to.equal('$920.58');
+    expect(customer2.getTotalSpent(bookingRepository1, roomRepository1)).to.equal('$0.00');
   });
 });

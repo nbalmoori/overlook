@@ -75,7 +75,7 @@ let bookings = [
   {
     id: "5fwrgu4i7k55hl6t7",
     userID: 1,
-    date: "2022/05/16",
+    date: "2023/05/16",
     roomNumber: 4
   }
 ];
